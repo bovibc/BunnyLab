@@ -9,7 +9,7 @@ import SpriteKit
 import SwiftUI
 
 class LabScene: SKScene, SKPhysicsContactDelegate {
-
+    // MARK: Variables
     var sceneCamera: SKCameraNode = SKCameraNode()
     var rightIsPressed = false
     var leftIsPressed = false
@@ -25,7 +25,9 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
 
     var player: SKSpriteNode!
     var playButton: SKSpriteNode!
-
+    
+    // MARK: Inherited Methods
+    
     override func didMove(to view: SKView) {
         self.camera = sceneCamera
         physicsWorld.contactDelegate = self
@@ -72,6 +74,8 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         setupLabels(isHidden: true)
         playButton.isHidden = true
     }
+
+    // MARK: Private Methods
     private func setupLabels(isHidden: Bool) {
         if let labelExp1 = childNode(withName: "labelExp1") as? SKLabelNode {
             labelExp1.isHidden = isHidden
