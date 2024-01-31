@@ -9,5 +9,8 @@ import UIKit
 import SpriteKit
 
 class SecondExperiment: SKScene {
-
+    
+    override func didMove(to view: SKView) {
+        
+    }
 }

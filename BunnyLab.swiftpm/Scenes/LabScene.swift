@@ -35,7 +35,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         self.setupPlayer()
         self.setupButtons()
         self.setupExperiments()
-        self.setupLabels()
+        self.setupLabels(isHidden: true)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -48,7 +48,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         } else if targetNode.name == "right" {
             rightIsPressed = true
         } else if targetNode.name == "play" {
-            
+            playButtonAction()
         }
     }
 
@@ -63,12 +63,27 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
+        self.setupLabels(isHidden: false)
         playButton.isHidden = false
         self.contact = contact
     }
 
     func didEnd(_ contact: SKPhysicsContact) {
+        setupLabels(isHidden: true)
         playButton.isHidden = true
+    }
+    private func setupLabels(isHidden: Bool) {
+        if let labelExp1 = childNode(withName: "labelExp1") as? SKLabelNode {
+            labelExp1.isHidden = isHidden
+        }
+
+        if let labelExp2 = childNode(withName: "labelExp2") as? SKLabelNode {
+            labelExp2.isHidden = isHidden
+        }
+
+        if let labelExp3 = childNode(withName: "labelExp3") as? SKLabelNode {
+            labelExp3.isHidden = isHidden
+        }
     }
 
     private func setupPlayer() {
@@ -107,10 +122,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         setMask(sprite: exp1, categoryMask: 2)
         setMask(sprite: exp2, categoryMask: 3)
         setMask(sprite: exp3, categoryMask: 4)
-    }
-    
-    private func setupLabels() {
-        
     }
 
     private func setMask(sprite: SKSpriteNode, categoryMask: Int) {
@@ -186,11 +197,10 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToFirstExperiment() {
-        
+        TrasactionsScenes.goToExperiment(view: self.view, experimentName: "SecondExperiment")
     }
 
     private func goesToSecondExperiment() {
-        
     }
 
     private func goesToThirdExperiment() {
