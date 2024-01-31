@@ -14,6 +14,8 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     var rightIsPressed = false
     var leftIsPressed = false
     var isWalking = false
+    
+    var contact: SKPhysicsContact?
 
     let playerSpeed: CGFloat = 5
     let stoppedPlayer = "PlayerFrente"
@@ -22,13 +24,18 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     let maxDistance: CGFloat = 1904
 
     var player: SKSpriteNode!
+    var playButton: SKSpriteNode!
 
     override func didMove(to view: SKView) {
         self.camera = sceneCamera
+        physicsWorld.contactDelegate = self
+        view.showsPhysics = true
         self.addChild(sceneCamera)
+
         self.setupPlayer()
-        self.setupArrows()
+        self.setupButtons()
         self.setupExperiments()
+        self.setupLabels()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -40,6 +47,8 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
             leftIsPressed = true
         } else if targetNode.name == "right" {
             rightIsPressed = true
+        } else if targetNode.name == "play" {
+            
         }
     }
 
@@ -53,23 +62,40 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         updateCameraPosition()
     }
 
+    func didBegin(_ contact: SKPhysicsContact) {
+        playButton.isHidden = false
+        self.contact = contact
+    }
+
+    func didEnd(_ contact: SKPhysicsContact) {
+        playButton.isHidden = true
+    }
+
     private func setupPlayer() {
         self.player = childNode(withName: "player") as? SKSpriteNode
         let texture = SKTexture(imageNamed: stoppedPlayer)
         self.player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.categoryBitMask = 1
+        self.player.physicsBody?.collisionBitMask = 0
+        self.player.physicsBody?.affectedByGravity = false
     }
 
-    private func setupArrows() {
+    private func setupButtons() {
         guard let rightArrow = childNode(withName: "right") as? SKSpriteNode,
-              let leftArrow = childNode(withName: "left") as? SKSpriteNode else { return }
+              let leftArrow = childNode(withName: "left") as? SKSpriteNode,
+              let playButton =  childNode(withName: "play") as? SKSpriteNode else { return }
 
+        self.playButton = playButton
+        self.playButton.isHidden = true
+        
         rightArrow.removeFromParent()
         leftArrow.removeFromParent()
+        playButton.removeFromParent()
 
         camera?.addChild(rightArrow)
         camera?.addChild(leftArrow)
+        camera?.addChild(self.playButton)
     }
 
     private func setupExperiments() {
@@ -82,11 +108,15 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         setMask(sprite: exp2, categoryMask: 3)
         setMask(sprite: exp3, categoryMask: 4)
     }
+    
+    private func setupLabels() {
+        
+    }
 
     private func setMask(sprite: SKSpriteNode, categoryMask: Int) {
         sprite.physicsBody?.categoryBitMask = UInt32(categoryMask)
         sprite.physicsBody?.contactTestBitMask = 1
-        sprite.physicsBody?.collisionBitMask = 1
+        sprite.physicsBody?.collisionBitMask = 0
     }
 
     private func updatePlayerPosition() {
@@ -100,7 +130,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
             isWalking = false
             stop()
         }
-        print(player.position.x)
     }
 
     private func walk() {
@@ -133,8 +162,38 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    func didBegin(_ contact: SKPhysicsContact) {
-        let bodyA = contact.bodyA.categoryBitMask
-        let bodyB = contact.bodyB.categoryBitMask
+    private func playButtonAction() {
+        if(isContactWithPlayer(contact, experimentMask: 2)) {
+            self.goesToFirstExperiment()
+        } else if(isContactWithPlayer(contact, experimentMask: 3)) {
+            self.goesToSecondExperiment()
+        } else if(isContactWithPlayer(contact, experimentMask: 4)) {
+            self.goesToThirdExperiment()
+        }
+    }
+
+    private func isContactWithPlayer(_ contact : SKPhysicsContact?, experimentMask: UInt32) -> Bool {
+        let bodyA = contact?.bodyA.categoryBitMask
+        let bodyB = contact?.bodyB.categoryBitMask
+
+        if(bodyA == 1 && bodyB == experimentMask) {
+            return true
+        } else if(bodyA == experimentMask && bodyB == 1) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private func goesToFirstExperiment() {
+        
+    }
+
+    private func goesToSecondExperiment() {
+        
+    }
+
+    private func goesToThirdExperiment() {
+        
     }
 }
