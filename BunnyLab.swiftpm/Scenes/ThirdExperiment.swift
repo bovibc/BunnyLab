@@ -20,12 +20,14 @@ class ThirdExperiment: SKScene {
     var rightAlleles2: [SKSpriteNode] = []
     var leftAlleles1: [SKSpriteNode] = []
     var leftAlleles2: [SKSpriteNode] = []
+    var labels: [SKLabelNode] = []
 
     var parentScene: SKScene?
 
     // MARK: Inherited Methods
     override func didMove(to view: SKView) {
         self.setupBunnies()
+        self.setupLabels()
         self.setupButtons()
     }
 
@@ -75,6 +77,15 @@ class ThirdExperiment: SKScene {
         self.replayAction()
     }
 
+    private func setupLabels() {
+        guard let label1 = childNode(withName: Assets.Exp2.label1.rawValue) as? SKLabelNode,
+              let label2 = childNode(withName: Assets.Exp2.label2.rawValue) as? SKLabelNode,
+              let label3 = childNode(withName: Assets.Exp2.label3.rawValue) as? SKLabelNode,
+              let label4 = childNode(withName: Assets.Exp2.label4.rawValue) as? SKLabelNode else { return }
+
+        labels = [label1, label2, label3, label4]
+    }
+
     private func updateBunnies() {
         let resultRight = Combinations.getCombinationResult(rightAlleles[0], rightAlleles[1])
         let resultLeft = Combinations.getCombinationResult(leftAlleles[0], leftAlleles[1])
@@ -82,8 +93,21 @@ class ThirdExperiment: SKScene {
         bunnyLeft.texture = SKTexture(imageNamed: resultLeft)
     }
 
-    private func mergeButton() {
-        
+    private func mergeAction() {
+        let result = Combinations.getCrossesResult(leftAlleles, rightAlleles)
+        self.mergeLabelResult()
+        resultBunnies[0].texture = SKTexture(imageNamed: result[0])
+        resultBunnies[1].texture = SKTexture(imageNamed: result[1])
+        resultBunnies[2].texture = SKTexture(imageNamed: result[2])
+        resultBunnies[3].texture = SKTexture(imageNamed: result[3])
+    }
+
+    private func mergeLabelResult() {
+        let label = Combinations.getCrossesResultString(leftAlleles, rightAlleles)
+        labels[0].text = label[0]
+        labels[1].text = label[1]
+        labels[2].text = label[2]
+        labels[3].text = label[3]
     }
 
     // MARK: Private Methods (need refactor)
@@ -126,6 +150,8 @@ class ThirdExperiment: SKScene {
     private func replayAction() {
         self.replayLeftAlelles()
         self.replayRightAlleles()
+        self.replayBunnies()
+        self.replayLabels()
     }
 
     private func backAction() {
@@ -165,6 +191,13 @@ class ThirdExperiment: SKScene {
         resultBunnies[1].texture = SKTexture(imageNamed: Assets.Images.bunnyDoubt.rawValue)
         resultBunnies[2].texture = SKTexture(imageNamed: Assets.Images.bunnyDoubt.rawValue)
         resultBunnies[3].texture = SKTexture(imageNamed: Assets.Images.bunnyDoubt.rawValue)
+    }
+    
+    private func replayLabels() {
+        labels[0].text = "?"
+        labels[1].text = "?"
+        labels[2].text = "?"
+        labels[3].text = "?"
     }
 
     private func left1ButtonClicked(_ targetNode: String) {

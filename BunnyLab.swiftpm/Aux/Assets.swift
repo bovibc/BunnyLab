@@ -52,6 +52,11 @@ enum Assets {
         case bunnyDoubt2 = "doubt2"
         case bunnyDoubt3 = "doubt3"
         case bunnyDoubt4 = "doubt4"
+
+        case label1 = "label1"
+        case label2 = "label2"
+        case label3 = "label3"
+        case label4 = "label4"
     }
     
     //MARK: images

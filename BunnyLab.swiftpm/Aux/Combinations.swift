@@ -20,7 +20,48 @@ class Combinations {
         }
     }
 
-    static func getCombinationResult(_ firstAlleles: [Alleles],_ secondAlleles: [Alleles]) -> String {
-        return "aa"
+    static func getCrossesResult(_ firstAlleles: [Alleles],_ secondAlleles: [Alleles]) -> [String] {
+        let result1 = getCombinationResult(firstAlleles[0], secondAlleles[0])
+        let result2 = getCombinationResult(firstAlleles[0], secondAlleles[1])
+        let result3 = getCombinationResult(firstAlleles[1], secondAlleles[0])
+        let result4 = getCombinationResult(firstAlleles[1], secondAlleles[1])
+        
+        return [result1, result2, result3, result4]
+    }
+
+    static func getCrossesResultString(_ firstAlleles: [Alleles],_ secondAlleles: [Alleles]) -> [String] {
+        let result1 = getCrossesResultStringWithPriority(firstAlleles[0], secondAlleles[0])
+        let result2 = getCrossesResultStringWithPriority(firstAlleles[0], secondAlleles[1])
+        let result3 = getCrossesResultStringWithPriority(firstAlleles[1], secondAlleles[0])
+        let result4 = getCrossesResultStringWithPriority(firstAlleles[1], secondAlleles[1])
+        
+        return [result1, result2, result3, result4]
+    }
+
+    static func getCrossesResultStringWithPriority(_ firstAllele: Alleles,_ secondAllele: Alleles) -> String {
+        var result = "\(firstAllele.rawValue)"
+        switch secondAllele {
+        case .S:
+            result = secondAllele.rawValue + result
+        case .C:
+            if(firstAllele == .S) {
+                result = result + secondAllele.rawValue
+            } else {
+                result = secondAllele.rawValue + result
+            }
+        case .H:
+            if(firstAllele == .S || firstAllele == .C) {
+                result = result + secondAllele.rawValue
+            } else {
+                result = secondAllele.rawValue + result
+            }
+        case .A:
+            if(firstAllele == .S || firstAllele == .C || firstAllele == .H) {
+                result = result + secondAllele.rawValue
+            } else {
+                result = secondAllele.rawValue + result
+            }
+        }
+        return result.uppercased()
     }
 }
