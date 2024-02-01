@@ -14,6 +14,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     var rightIsPressed = false
     var leftIsPressed = false
     var isWalking = false
+    var sceneStarted = false
     
     var contact: SKPhysicsContact?
 
@@ -29,6 +30,8 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     // MARK: Inherited Methods
     
     override func didMove(to view: SKView) {
+        guard !sceneStarted else { return }
+        sceneStarted = true
         self.camera = sceneCamera
         physicsWorld.contactDelegate = self
         view.showsPhysics = true
@@ -201,10 +204,11 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToFirstExperiment() {
-        TrasactionsScenes.goToExperiment(view: self.view, experimentName: "SecondExperiment")
+        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
     }
 
     private func goesToSecondExperiment() {
+        TrasactionsScenes.goToSecondExperiment(view: self.view, self)
     }
 
     private func goesToThirdExperiment() {

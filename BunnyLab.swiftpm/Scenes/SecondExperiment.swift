@@ -17,6 +17,8 @@ class SecondExperiment: SKScene {
     var rightAlleles: [SKSpriteNode] = []
     var leftAlleles: [SKSpriteNode] = []
     var assets: Assets = Assets()
+    
+    var parentScene: SKScene?
 
     // MARK: Inherited Methods
     override func didMove(to view: SKView) {
@@ -38,6 +40,8 @@ class SecondExperiment: SKScene {
             self.mergeAction()
         } else if(name == assets.replay) {
             self.replayAction()
+        } else if(name == assets.back) {
+            self.backAction()
         }
     }
 
@@ -49,6 +53,7 @@ class SecondExperiment: SKScene {
     private func setupButtons() {
         self.setupLeftButtons()
         self.setupRightButtons()
+        self.replayAction()
     }
 
     private func setupLeftButtons() {
@@ -58,7 +63,6 @@ class SecondExperiment: SKScene {
               let aButton =  childNode(withName: assets.aButtonLeft) as? SKSpriteNode else { return }
 
         leftAlleles = [sButton, cButton, hButton, aButton]
-        leftAlleles[0].texture = SKTexture(imageNamed: assets.sButtonClicked)
     }
 
     private func setupRightButtons() {
@@ -68,7 +72,6 @@ class SecondExperiment: SKScene {
               let aButton =  childNode(withName: assets.aButtonRight) as? SKSpriteNode else { return }
     
         rightAlleles = [sButton, cButton, hButton, aButton]
-        rightAlleles[0].texture = SKTexture(imageNamed: assets.sButtonClicked)
     }
 
     private func rightButtonClicked(_ targetNode: String) {
@@ -126,10 +129,27 @@ class SecondExperiment: SKScene {
     }
 
     private func replayAction() {
-        
+        leftAlleles[0].texture = SKTexture(imageNamed: assets.sButtonClicked)
+        leftAlleles[1].texture = SKTexture(imageNamed: assets.cButton)
+        leftAlleles[2].texture = SKTexture(imageNamed: assets.hButton)
+        leftAlleles[3].texture = SKTexture(imageNamed: assets.aButton)
+        rightAlleles[0].texture = SKTexture(imageNamed: assets.sButtonClicked)
+        rightAlleles[1].texture = SKTexture(imageNamed: assets.cButton)
+        rightAlleles[2].texture = SKTexture(imageNamed: assets.hButton)
+        rightAlleles[3].texture = SKTexture(imageNamed: assets.aButton)
+        bunny.texture = SKTexture(imageNamed: assets.bunnyDoubt)
+        leftAllele = .S
+        rightAllele = .S
     }
 
     private func mergeAction() {
-        
+        let result = Combinations.getCombinationResult(rightAllele, leftAllele)
+        bunny.texture = SKTexture(imageNamed: result)
+    }
+
+    private func backAction() {
+        if let previousScene = self.parentScene {
+            self.view?.presentScene(previousScene)
+        }
     }
 }

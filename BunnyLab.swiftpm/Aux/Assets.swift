@@ -20,6 +20,12 @@ struct Assets {
     let hButtonRight = "hButtonRight"
     let aButtonRight = "aButtonRight"
     
+    let bunnyDoubt = "doubt"
+    let bunnyChinchilla = "BunnyChinchila"
+    let BunnyHimalaian = "BunnyHimalaia"
+    let bunnyWild = "BunnySelvagem"
+    let bunnyAlbino = "WhiteBunny"
+    
     //MARK: images
     let sButtonClicked = "buttonSClicked"
     let cButtonClicked = "buttonCClicked"
@@ -33,4 +39,5 @@ struct Assets {
     
     let merge = "merge"
     let replay = "replay"
+    let back = "back"
 }

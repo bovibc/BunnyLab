@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "lousaHorizontal.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
