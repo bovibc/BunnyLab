@@ -20,7 +20,7 @@ class ThirdExperiment: SKScene {
     var rightAlleles2: [SKSpriteNode] = []
     var leftAlleles1: [SKSpriteNode] = []
     var leftAlleles2: [SKSpriteNode] = []
-    
+
     var parentScene: SKScene?
 
     // MARK: Inherited Methods
@@ -34,8 +34,7 @@ class ThirdExperiment: SKScene {
         let touchLocation = touch?.location(in: self)
         let targetNode = atPoint(touchLocation!) as! SKSpriteNode
         let name = targetNode.name ?? ""
-        
-        self.updateBunnies()
+
         if leftAlleles1.contains(targetNode) {
             self.left1ButtonClicked(name)
         } else if rightAlleles1.contains(targetNode) {
@@ -45,12 +44,14 @@ class ThirdExperiment: SKScene {
         } else if rightAlleles2.contains(targetNode) {
             self.right2ButtonClicked(name)
         } else if(name == Assets.Images.merge.rawValue) {
-           // self.mergeAction()
+            self.mergeAction()
         } else if(name == Assets.Images.replay.rawValue) {
             self.replayAction()
         } else if(name == Assets.Images.back.rawValue) {
             self.backAction()
         }
+
+        self.updateBunnies()
     }
 
     // MARK: Private Methods
@@ -73,12 +74,16 @@ class ThirdExperiment: SKScene {
         self.setupLeftButtons2()
         self.replayAction()
     }
-    
+
     private func updateBunnies() {
         let resultRight = Combinations.getCombinationResult(rightAlleles[0], rightAlleles[1])
         let resultLeft = Combinations.getCombinationResult(leftAlleles[0], leftAlleles[1])
         bunnyRight.texture = SKTexture(imageNamed: resultRight)
         bunnyLeft.texture = SKTexture(imageNamed: resultLeft)
+    }
+
+    private func mergeButton() {
+        
     }
 
     // MARK: Private Methods (need refactor)
@@ -193,7 +198,7 @@ class ThirdExperiment: SKScene {
         changeUnselectedRight2Button()
         changeSelectedRight2Button()
     }
-    
+
     private func changeSelectedRight1Button() {
         if(rightAlleles[0].rawValue == rightAlleles1[0].name?.first?.description) {
             rightAlleles1[0].texture = SKTexture(imageNamed: Assets.Images.sButtonClicked.rawValue)
@@ -255,13 +260,14 @@ class ThirdExperiment: SKScene {
         rightAlleles2[2].texture = SKTexture(imageNamed: Assets.Images.hButton.rawValue)
         rightAlleles2[3].texture = SKTexture(imageNamed: Assets.Images.aButton.rawValue)
     }
-    
+
     private func changeUnselectedLeft1Button() {
         leftAlleles1[0].texture = SKTexture(imageNamed: Assets.Images.sButton.rawValue)
         leftAlleles1[1].texture = SKTexture(imageNamed: Assets.Images.cButton.rawValue)
         leftAlleles1[2].texture = SKTexture(imageNamed: Assets.Images.hButton.rawValue)
         leftAlleles1[3].texture = SKTexture(imageNamed: Assets.Images.aButton.rawValue)
     }
+
     private func changeUnselectedLeft2Button() {
         leftAlleles2[0].texture = SKTexture(imageNamed: Assets.Images.sButton.rawValue)
         leftAlleles2[1].texture = SKTexture(imageNamed: Assets.Images.cButton.rawValue)
