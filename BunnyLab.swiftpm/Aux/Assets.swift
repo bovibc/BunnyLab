@@ -8,6 +8,7 @@
 import Foundation
 
 struct Assets {
+    //MARK: names of sprites
     let sButtonLeft = "sButtonLeft"
     let cButtonLeft = "cButtonLeft"
     let hButtonLeft = "hButtonLeft"
@@ -19,8 +20,17 @@ struct Assets {
     let hButtonRight = "hButtonRight"
     let aButtonRight = "aButtonRight"
     
+    //MARK: images
     let sButtonClicked = "buttonSClicked"
-    let cButtonClicked = "buttonClicked"
+    let cButtonClicked = "buttonCClicked"
     let hButtonClicked = "buttonHClicked"
     let aButtonClicked = "buttonAClicked"
+    
+    let sButton = "buttonS"
+    let cButton = "buttonC"
+    let hButton = "buttonH"
+    let aButton = "buttonA"
+    
+    let merge = "merge"
+    let replay = "replay"
 }
