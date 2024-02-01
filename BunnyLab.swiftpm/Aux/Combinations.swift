@@ -9,15 +9,14 @@ import Foundation
 
 class Combinations {
     static func getCombinationResult(_ firstAllele: Alleles,_ secondAllele: Alleles) -> String {
-        let assets = Assets()
         if(firstAllele == .S || secondAllele == .S) {
-            return assets.bunnyWild
+            return Assets.Images.bunnyWild.rawValue
         } else if (firstAllele == .C || secondAllele == .C) {
-            return assets.bunnyChinchilla
+            return Assets.Images.bunnyChinchilla.rawValue
         } else if (firstAllele == .H || secondAllele == .H) {
-            return assets.BunnyHimalaian
+            return Assets.Images.BunnyHimalaian.rawValue
         } else {
-            return assets.bunnyAlbino
+            return Assets.Images.bunnyAlbino.rawValue
         }
     }
 
