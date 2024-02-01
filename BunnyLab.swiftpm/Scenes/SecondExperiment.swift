@@ -46,7 +46,7 @@ class SecondExperiment: SKScene {
 
     // MARK: Private Methods
     private func setupBunny() {
-        self.bunny = childNode(withName: "bunny") as? SKSpriteNode
+        self.bunny = childNode(withName: Assets.Exp1.bunny.rawValue) as? SKSpriteNode
     }
 
     private func setupButtons() {

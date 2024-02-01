@@ -10,6 +10,8 @@ import Foundation
 enum Assets {
     //MARK: names of sprites
     enum Exp1: String {
+        case bunny = "bunny"
+        
         case sButtonLeft = "sButtonLeft"
         case cButtonLeft = "cButtonLeft"
         case hButtonLeft = "hButtonLeft"

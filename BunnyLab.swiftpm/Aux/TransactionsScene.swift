@@ -34,6 +34,7 @@ class TrasactionsScenes: SKScene {
         
         if let experiment = scene?.rootNode as? SKScene {
             let experimentScene = experiment as! ThirdExperiment
+            experimentScene.parentScene = parent
             view.presentScene(experimentScene)
         }
     }
