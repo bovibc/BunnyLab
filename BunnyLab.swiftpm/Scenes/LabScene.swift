@@ -26,6 +26,11 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
 
     var player: SKSpriteNode!
     var playButton: SKSpriteNode!
+    var talkBlur: SKSpriteNode!
+    var talkBalloon: SKSpriteNode!
+    var talkHead: SKSpriteNode!
+    var talkLabel: SKLabelNode!
+    var talkArrow: SKSpriteNode!
     
     // MARK: Inherited Methods
     
@@ -41,6 +46,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         self.setupButtons()
         self.setupExperiments()
         self.setupLabels(isHidden: true)
+        self.setupTalk()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -54,6 +60,8 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
             rightIsPressed = true
         } else if targetNode.name == "play" {
             playButtonAction()
+        } else if targetNode.name == Assets.General.talkArrow.rawValue {
+            nextTalk()
         }
     }
 
@@ -91,6 +99,20 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         if let labelExp3 = childNode(withName: "labelExp3") as? SKLabelNode {
             labelExp3.isHidden = isHidden
         }
+    }
+
+    private func setupTalk() {
+        self.talkBlur = childNode(withName: Assets.General.talkBlur.rawValue) as? SKSpriteNode
+        self.talkBalloon = childNode(withName: Assets.General.talkBalloon.rawValue) as? SKSpriteNode
+        self.talkHead = childNode(withName: Assets.General.talkHead.rawValue) as? SKSpriteNode
+        self.talkLabel = childNode(withName: Assets.General.talkLabel.rawValue) as? SKLabelNode
+        self.talkArrow = childNode(withName: Assets.General.talkArrow.rawValue) as? SKSpriteNode
+        
+        talkBlur.removeFromParent()
+        talkBalloon.removeFromParent()
+        talkHead.removeFromParent()
+        talkLabel.removeFromParent()
+        talkArrow.removeFromParent()
     }
 
     private func setupPlayer() {
@@ -203,8 +225,24 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
+    private func talkInit(text: String) {
+        talkLabel.text = text
+        camera?.addChild(talkBlur)
+        camera?.addChild(talkBalloon)
+        camera?.addChild(talkHead)
+        camera?.addChild(talkLabel)
+        camera?.addChild(talkArrow)
+    }
+
+    private func talk(text: String) {
+        talkLabel.text = text
+    }
+    
+    private func nextTalk() {
+    }
+
     private func goesToFirstExperiment() {
-        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
+        talkInit(text: "aaaaaaaaaaaaaaa")
     }
 
     private func goesToSecondExperiment() {
@@ -212,6 +250,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToThirdExperiment() {
-        
+        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
     }
 }

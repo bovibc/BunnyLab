@@ -10,13 +10,13 @@ import Foundation
 class Combinations {
     static func getCombinationResult(_ firstAllele: Alleles,_ secondAllele: Alleles) -> String {
         if(firstAllele == .S || secondAllele == .S) {
-            return Assets.Images.bunnyWild.rawValue
+            return Assets.General.bunnyWild.rawValue
         } else if (firstAllele == .C || secondAllele == .C) {
-            return Assets.Images.bunnyChinchilla.rawValue
+            return Assets.General.bunnyChinchilla.rawValue
         } else if (firstAllele == .H || secondAllele == .H) {
-            return Assets.Images.BunnyHimalaian.rawValue
+            return Assets.General.bunnyHimalayan.rawValue
         } else {
-            return Assets.Images.bunnyAlbino.rawValue
+            return Assets.General.bunnyAlbino.rawValue
         }
     }
 

@@ -61,7 +61,7 @@ enum Assets {
     }
     
     //MARK: images
-    enum Images: String {
+    enum General: String {
         case sButtonClicked = "buttonSClicked"
         case cButtonClicked = "buttonCClicked"
         case hButtonClicked = "buttonHClicked"
@@ -76,11 +76,27 @@ enum Assets {
         case replay = "replay"
         case back = "back"
         case info = "info"
+        case infoBoard = "infoBoard"
+        case infoLabel = "infoLabel"
+        case infoBlur = "infoBlur"
+        case infoClose = "infoClose"
+        
+        case talkBalloon = "talkBalloon"
+        case talkBlur = "talkBlur"
+        case talkHead = "talkHead"
+        case talkLabel = "talkLabel"
+        case talkArrow = "talkArrow"
         
         case bunnyDoubt = "doubt"
         case bunnyChinchilla = "BunnyChinchila"
-        case BunnyHimalaian = "BunnyHimalaia"
+        case bunnyHimalayan = "BunnyHimalaia"
         case bunnyWild = "BunnySelvagem"
         case bunnyAlbino = "WhiteBunny"
+        
+        case chinchillaHead = "ChinchilaHead"
+        case himalayanHead = "HimalaiaHead"
+        case wildHead = "SelvagemHead"
+        case whiteHead = "WhiteHead"
+        case mainHead = "MainHead"
     }
 }
