@@ -11,6 +11,7 @@ enum Assets {
     //MARK: names of sprites
     enum Exp1: String {
         case bunny = "bunny"
+        case bunnyName = "bunnyName"
         
         case sButtonLeft = "sButtonLeft"
         case cButtonLeft = "cButtonLeft"
@@ -74,6 +75,7 @@ enum Assets {
         case merge = "merge"
         case replay = "replay"
         case back = "back"
+        case info = "info"
         
         case bunnyDoubt = "doubt"
         case bunnyChinchilla = "BunnyChinchila"

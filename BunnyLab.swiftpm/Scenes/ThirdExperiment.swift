@@ -51,6 +51,8 @@ class ThirdExperiment: SKScene {
             self.replayAction()
         } else if(name == Assets.Images.back.rawValue) {
             self.backAction()
+        } else if(name == Assets.Images.info.rawValue) {
+            self.infoAction()
         }
 
         self.updateBunnies()
@@ -158,6 +160,10 @@ class ThirdExperiment: SKScene {
         if let previousScene = self.parentScene {
             self.view?.presentScene(previousScene)
         }
+    }
+
+    private func infoAction() {
+        
     }
 
     private func replayLeftAlelles() {

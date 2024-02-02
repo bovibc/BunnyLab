@@ -20,6 +20,18 @@ class Combinations {
         }
     }
 
+    static func getCombinationResultName(_ firstAllele: Alleles,_ secondAllele: Alleles) -> String {
+        if(firstAllele == .S || secondAllele == .S) {
+            return "Wild"
+        } else if (firstAllele == .C || secondAllele == .C) {
+            return "Chinchilla"
+        } else if (firstAllele == .H || secondAllele == .H) {
+            return "Himalayan"
+        } else {
+            return "Albino"
+        }
+    }
+
     static func getCrossesResult(_ firstAlleles: [Alleles],_ secondAlleles: [Alleles]) -> [String] {
         let result1 = getCombinationResult(firstAlleles[0], secondAlleles[0])
         let result2 = getCombinationResult(firstAlleles[0], secondAlleles[1])

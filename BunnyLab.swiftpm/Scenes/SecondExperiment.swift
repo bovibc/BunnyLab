@@ -11,6 +11,7 @@ import SpriteKit
 class SecondExperiment: SKScene {
     // MARK: Variables
     var bunny: SKSpriteNode!
+    var bunnyName: SKLabelNode!
 
     var leftAllele: Alleles = .S
     var rightAllele: Alleles = .S
@@ -47,6 +48,7 @@ class SecondExperiment: SKScene {
     // MARK: Private Methods
     private func setupBunny() {
         self.bunny = childNode(withName: Assets.Exp1.bunny.rawValue) as? SKSpriteNode
+        self.bunnyName = childNode(withName: Assets.Exp1.bunnyName.rawValue) as? SKLabelNode
     }
 
     private func setupButtons() {
@@ -137,13 +139,17 @@ class SecondExperiment: SKScene {
         rightAlleles[2].texture = SKTexture(imageNamed: Assets.Images.hButton.rawValue)
         rightAlleles[3].texture = SKTexture(imageNamed: Assets.Images.aButton.rawValue)
         bunny.texture = SKTexture(imageNamed: Assets.Images.bunnyDoubt.rawValue)
+        bunnyName.isHidden = true
         leftAllele = .S
         rightAllele = .S
     }
 
     private func mergeAction() {
         let result = Combinations.getCombinationResult(rightAllele, leftAllele)
+        let name = Combinations.getCombinationResultName(rightAllele, leftAllele )
         bunny.texture = SKTexture(imageNamed: result)
+        bunnyName.isHidden = false
+        bunnyName.text = name
     }
 
     private func backAction() {
