@@ -23,6 +23,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     let walkingPlayer = "WalkingPlayer"
     let minDistance: CGFloat = -78
     let maxDistance: CGFloat = 1904
+    let textFlow: TextFlow  = TextFlow()
 
     var player: SKSpriteNode!
     var playButton: SKSpriteNode!
@@ -31,6 +32,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     var talkHead: SKSpriteNode!
     var talkLabel: SKLabelNode!
     var talkArrow: SKSpriteNode!
+    var talkArrowBack: SKSpriteNode!
     
     // MARK: Inherited Methods
     
@@ -62,6 +64,8 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
             playButtonAction()
         } else if targetNode.name == Assets.General.talkArrow.rawValue {
             nextTalk()
+        } else if targetNode.name == Assets.General.talkArrowBack.rawValue {
+            previousTalk()
         }
     }
 
@@ -107,12 +111,14 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         self.talkHead = childNode(withName: Assets.General.talkHead.rawValue) as? SKSpriteNode
         self.talkLabel = childNode(withName: Assets.General.talkLabel.rawValue) as? SKLabelNode
         self.talkArrow = childNode(withName: Assets.General.talkArrow.rawValue) as? SKSpriteNode
+        self.talkArrowBack = childNode(withName: Assets.General.talkArrowBack.rawValue) as? SKSpriteNode
         
         talkBlur.removeFromParent()
         talkBalloon.removeFromParent()
         talkHead.removeFromParent()
         talkLabel.removeFromParent()
         talkArrow.removeFromParent()
+        talkArrowBack.removeFromParent()
     }
 
     private func setupPlayer() {
@@ -204,11 +210,11 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
 
     private func playButtonAction() {
         if(isContactWithPlayer(contact, experimentMask: 2)) {
-            self.goesToFirstExperiment()
+            self.talkInit(flow: .FirstExperiment)
         } else if(isContactWithPlayer(contact, experimentMask: 3)) {
-            self.goesToSecondExperiment()
+            self.talkInit(flow: .SecondExperiment)
         } else if(isContactWithPlayer(contact, experimentMask: 4)) {
-            self.goesToThirdExperiment()
+            self.talkInit(flow: .ThirdExperiment)
         }
     }
 
@@ -225,24 +231,59 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    private func talkInit(text: String) {
-        talkLabel.text = text
+    private func talkInit(flow: StoryFlow) {
+        talkLabel.text = textFlow.startText(flow: flow)
         camera?.addChild(talkBlur)
         camera?.addChild(talkBalloon)
         camera?.addChild(talkHead)
         camera?.addChild(talkLabel)
         camera?.addChild(talkArrow)
+        camera?.addChild(talkArrowBack)
     }
 
-    private func talk(text: String) {
+    private func nextTalk() {
+        guard let text = textFlow.nextText() else {
+            finishText()
+            return
+        }
         talkLabel.text = text
     }
+
+    private func previousTalk() {
+        guard let text = textFlow.previousText() else {
+            removeTalk()
+            return
+        }
+        talkLabel.text = text
+    }
+
+    private func finishText() {
+        removeTalk()
+        switch textFlow.flow {
+        case .FirstExperiment:
+            goesToFirstExperiment()
+        case .SecondExperiment:
+            goesToSecondExperiment()
+        case .ThirdExperiment:
+            goesToThirdExperiment()
+        case .End:
+            goesToEnd()
+        default:
+            goesToFirstExperiment()
+        }
+    }
     
-    private func nextTalk() {
+    private func removeTalk() {
+        talkBlur.removeFromParent()
+        talkBalloon.removeFromParent()
+        talkHead.removeFromParent()
+        talkLabel.removeFromParent()
+        talkArrow.removeFromParent()
+        talkArrowBack.removeFromParent()
     }
 
     private func goesToFirstExperiment() {
-        talkInit(text: "aaaaaaaaaaaaaaa")
+        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
     }
 
     private func goesToSecondExperiment() {
@@ -251,5 +292,9 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
 
     private func goesToThirdExperiment() {
         TrasactionsScenes.goToThirdExperiment(view: self.view, self)
+    }
+
+    private func goesToEnd() {
+        
     }
 }

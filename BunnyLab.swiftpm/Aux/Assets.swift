@@ -86,6 +86,7 @@ enum Assets {
         case talkHead = "talkHead"
         case talkLabel = "talkLabel"
         case talkArrow = "talkArrow"
+        case talkArrowBack = "talkArrowBack"
         
         case bunnyDoubt = "doubt"
         case bunnyChinchilla = "BunnyChinchila"
