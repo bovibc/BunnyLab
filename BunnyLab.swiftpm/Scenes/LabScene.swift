@@ -35,7 +35,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     var talkArrowBack: SKSpriteNode!
     
     // MARK: Inherited Methods
-    
     override func didMove(to view: SKView) {
         guard !sceneStarted else { return }
         sceneStarted = true
