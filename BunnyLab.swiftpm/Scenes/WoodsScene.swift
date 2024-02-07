@@ -14,6 +14,11 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     var rightIsPressed = false
     var leftIsPressed = false
     var isWalking = false
+    var isFirstPositionUsed = false
+    var isSecondPositionUsed = false
+    var isThirdPositionUsed = false
+    var talkArrowBackIsRemoved = true
+    
     
     var contact: SKPhysicsContact?
 
@@ -30,6 +35,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     var talkHead: SKSpriteNode!
     var talkLabel: SKLabelNode!
     var talkArrow: SKSpriteNode!
+    var talkArrowBack: SKSpriteNode!
     
     // MARK: Inherited Methods
     override func didMove(to view: SKView) {
@@ -41,6 +47,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         self.setupPlayer()
         self.setupButtons()
         self.setupTalk()
+        self.setupBarrier()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -54,6 +61,8 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
             rightIsPressed = true
         } else if targetNode.name == Assets.General.talkArrow.rawValue {
             nextTalk()
+        } else if targetNode.name == Assets.General.talkArrowBack.rawValue {
+            previousTalk()
         }
     }
 
@@ -65,6 +74,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         updatePlayerPosition()
         updateCameraPosition()
+        verifyPosition()
     }
 
     // MARK: Private Methods
@@ -75,12 +85,14 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         self.talkHead = childNode(withName: Assets.General.talkHead.rawValue) as? SKSpriteNode
         self.talkLabel = childNode(withName: Assets.General.talkLabel.rawValue) as? SKLabelNode
         self.talkArrow = childNode(withName: Assets.General.talkArrow.rawValue) as? SKSpriteNode
+        self.talkArrowBack = childNode(withName: Assets.General.talkArrowBack.rawValue) as? SKSpriteNode
         
         talkBlur.removeFromParent()
         talkBalloon.removeFromParent()
         talkHead.removeFromParent()
         talkLabel.removeFromParent()
         talkArrow.removeFromParent()
+        talkArrowBack.removeFromParent()
     }
 
     private func setupPlayer() {
@@ -89,7 +101,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.categoryBitMask = 1
-        self.player.physicsBody?.collisionBitMask = 0
+        self.player.physicsBody?.collisionBitMask = 1
         self.player.physicsBody?.affectedByGravity = false
     }
 
@@ -102,6 +114,10 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
 
         camera?.addChild(rightArrow)
         camera?.addChild(leftArrow)
+    }
+
+    private func setupBarrier() {
+        
     }
 
     private func updatePlayerPosition() {
@@ -147,8 +163,8 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    private func talkInit() {
-        talkLabel.text = textFlow.startText(flow: .Woods)
+    private func talkInit(flow: StoryFlow) {
+        talkLabel.text = textFlow.startText(flow: flow)
         camera?.addChild(talkBlur)
         camera?.addChild(talkBalloon)
         camera?.addChild(talkHead)
@@ -156,17 +172,61 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         camera?.addChild(talkArrow)
     }
 
+    private func verifyPosition() {
+        let position = player.position.x
+        let positionRounded = Double(position).round()
+        if(positionRounded == -85){
+            if isFirstPositionUsed { return }
+            isFirstPositionUsed = true
+            isSecondPositionUsed = false
+            isThirdPositionUsed = false
+            talkInit(flow: .Woods1)
+        } else if(positionRounded == 425) {
+            if isSecondPositionUsed { return }
+            isSecondPositionUsed = true
+            isFirstPositionUsed = false
+            isThirdPositionUsed = false
+            talkInit(flow: .Woods2)
+        } else if(positionRounded == 680) {
+            if isThirdPositionUsed { return }
+            isThirdPositionUsed = true
+            isFirstPositionUsed = false
+            isSecondPositionUsed = false
+            talkInit(flow: .Woods3)
+        }
+    }
+
     private func nextTalk() {
         guard let text = textFlow.nextText() else {
             finishText()
             return
         }
+
+        if talkArrowBackIsRemoved && textFlow.isFirstIndex() {
+            talkArrowBackIsRemoved = false
+            camera?.addChild(talkArrowBack)
+        }
+        
+        talkLabel.text = text
+    }
+
+    private func previousTalk() {
+        guard let text = textFlow.previousText() else {
+            removeTalk()
+            return
+        }
+
+        if textFlow.isZeroIndex() {
+            talkArrowBackIsRemoved = true
+            talkArrowBack.removeFromParent()
+        }
+
         talkLabel.text = text
     }
 
     private func finishText() {
         removeTalk()
-        goesToLab()
+        if textFlow.flow == .Woods3 { goesToLab() }
     }
     
     private func removeTalk() {
@@ -175,9 +235,18 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         talkHead.removeFromParent()
         talkLabel.removeFromParent()
         talkArrow.removeFromParent()
+        talkArrowBack.removeFromParent()
+        talkArrowBackIsRemoved = true
     }
 
     private func goesToLab() {
-        
+        TrasactionsScenes.goToLab(view: self.view)
+    }
+}
+
+extension Double {
+    func round() -> Double {
+        let divisor = pow(10.0, Double(2))
+        return (self * divisor).rounded() / divisor
     }
 }

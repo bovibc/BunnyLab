@@ -10,8 +10,10 @@ import Foundation
 
 struct Texts {
     let cityTexts: [String] = ["aaaaaaaaaaaaaa", "bbbbbbbbbbbb", "ccccccccccccc"]
-    let woodsTexts: [String] = ["dddddddddedmkm", "eeeemfekfmfelmlf", "ffffekjnffnkenkfj"]
-    let firstExperimentTexts: [String] = ["dnskjnskdjnsdjkd", "berijiejejoire", "uuuuuuuu"]
+    let woodsTexts1: [String] = ["dddddddddedmkm"]
+    let woodsTexts2: [String] = ["ccccccc"]
+    let woodsTexts3: [String] = ["bbbbbbb", "sdjdjsk", "dhsihdihddhihdsdih"]
+    let firstExperimentTexts: [String] = ["dnsdskjnskdjnsdjkd", "berijiejejoire", "uuuuuuuu"]
     let secondExperimentTexts: [String] = ["gugugugugugugug", "ahahahahahaha", "iiiiiiiiiii"]
     let thirdExperimentTexts: [String] = ["a", "b", "c"]
     let endTexts: [String] = ["d", "e", "f"]

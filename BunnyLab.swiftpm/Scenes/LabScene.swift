@@ -15,6 +15,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     var leftIsPressed = false
     var isWalking = false
     var sceneStarted = false
+    var talkArrowBackIsRemoved = true
     
     var contact: SKPhysicsContact?
 
@@ -126,7 +127,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.categoryBitMask = 1
-        self.player.physicsBody?.collisionBitMask = 0
+        self.player.physicsBody?.collisionBitMask = 1
         self.player.physicsBody?.affectedByGravity = false
     }
 
@@ -237,7 +238,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         camera?.addChild(talkHead)
         camera?.addChild(talkLabel)
         camera?.addChild(talkArrow)
-        camera?.addChild(talkArrowBack)
     }
 
     private func nextTalk() {
@@ -245,6 +245,12 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
             finishText()
             return
         }
+
+        if talkArrowBackIsRemoved && textFlow.isFirstIndex() {
+            talkArrowBackIsRemoved = false
+            camera?.addChild(talkArrowBack)
+        }
+
         talkLabel.text = text
     }
 
@@ -253,6 +259,12 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
             removeTalk()
             return
         }
+        
+        if textFlow.isZeroIndex() {
+            talkArrowBackIsRemoved = true
+            talkArrowBack.removeFromParent()
+        }
+
         talkLabel.text = text
     }
 
@@ -279,6 +291,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         talkLabel.removeFromParent()
         talkArrow.removeFromParent()
         talkArrowBack.removeFromParent()
+        talkArrowBackIsRemoved = true
     }
 
     private func goesToFirstExperiment() {
