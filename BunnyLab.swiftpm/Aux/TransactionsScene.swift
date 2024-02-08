@@ -18,6 +18,7 @@ enum Experiments: String {
 
 enum Scenes: String {
     case Lab = "LabScene"
+    case FinishWoods = "FinishWoods"
 }
 
 class TrasactionsScenes: SKScene {
@@ -28,6 +29,15 @@ class TrasactionsScenes: SKScene {
         if let experiment = scene?.rootNode as? SKScene {
             let experimentScene = experiment as! LabScene
             view.presentScene(experimentScene)
+        }
+    }
+    
+    static func goToFinishWoods(view: SKView?){
+        guard let view = view else { return }
+        let scene = GKScene(fileNamed: Scenes.FinishWoods.rawValue)
+        
+        if let experiment = scene?.rootNode as? SKScene {
+            view.presentScene(experiment)
         }
     }
     

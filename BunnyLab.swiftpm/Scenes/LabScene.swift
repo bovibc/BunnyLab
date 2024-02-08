@@ -43,10 +43,9 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         view.showsPhysics = true
         self.addChild(sceneCamera)
-
+        
         self.setupPlayer()
         self.setupButtons()
-        self.setupExperiments()
         self.setupLabels(isHidden: true)
         self.setupTalk()
     }
@@ -80,12 +79,15 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
+        self.contact = contact
+        if isContactWithBarrier() { return }
         self.setupLabels(isHidden: false)
         playButton.isHidden = false
-        self.contact = contact
     }
 
     func didEnd(_ contact: SKPhysicsContact) {
+        self.contact = contact
+        if isContactWithBarrier() { return }
         setupLabels(isHidden: true)
         playButton.isHidden = true
     }
@@ -124,10 +126,11 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     private func setupPlayer() {
         self.player = childNode(withName: "player") as? SKSpriteNode
         let texture = SKTexture(imageNamed: stoppedPlayer)
-        self.player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
+        self.player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.categoryBitMask = 1
         self.player.physicsBody?.collisionBitMask = 1
+        
         self.player.physicsBody?.affectedByGravity = false
     }
 
@@ -146,23 +149,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         camera?.addChild(rightArrow)
         camera?.addChild(leftArrow)
         camera?.addChild(self.playButton)
-    }
-
-    private func setupExperiments() {
-        guard let exp1 = childNode(withName: "exp1") as? SKSpriteNode,
-              let exp2 = childNode(withName: "exp2") as? SKSpriteNode,
-              let exp3 = childNode(withName: "exp3") as? SKSpriteNode
-        else { return }
-
-        setMask(sprite: exp1, categoryMask: 2)
-        setMask(sprite: exp2, categoryMask: 3)
-        setMask(sprite: exp3, categoryMask: 4)
-    }
-
-    private func setMask(sprite: SKSpriteNode, categoryMask: Int) {
-        sprite.physicsBody?.categoryBitMask = UInt32(categoryMask)
-        sprite.physicsBody?.contactTestBitMask = 1
-        sprite.physicsBody?.collisionBitMask = 0
     }
 
     private func updatePlayerPosition() {
@@ -211,9 +197,9 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     private func playButtonAction() {
         if(isContactWithPlayer(contact, experimentMask: 2)) {
             self.talkInit(flow: .FirstExperiment)
-        } else if(isContactWithPlayer(contact, experimentMask: 3)) {
-            self.talkInit(flow: .SecondExperiment)
         } else if(isContactWithPlayer(contact, experimentMask: 4)) {
+            self.talkInit(flow: .SecondExperiment)
+        } else if(isContactWithPlayer(contact, experimentMask: 8)) {
             self.talkInit(flow: .ThirdExperiment)
         }
     }
@@ -307,6 +293,18 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToEnd() {
-        
+        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
+    }
+
+    private func isContactWithBarrier() -> Bool {
+        let bodyA = contact?.bodyA.node?.name
+        let bodyB = contact?.bodyB.node?.name
+        if(bodyA == "baixo" || bodyA == "direita" || bodyA == "esquerda") {
+            return true
+        } else if(bodyB == "baixo" || bodyB == "direita" || bodyA == "esquerda") {
+            return true
+        } else {
+            return false
+        }
     }
 }

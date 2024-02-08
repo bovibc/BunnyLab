@@ -43,11 +43,10 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         view.showsPhysics = true
         self.addChild(sceneCamera)
-
+        
         self.setupPlayer()
         self.setupButtons()
         self.setupTalk()
-        self.setupBarrier()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -116,10 +115,6 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         camera?.addChild(leftArrow)
     }
 
-    private func setupBarrier() {
-        
-    }
-
     private func updatePlayerPosition() {
         if rightIsPressed {
             player.position.x += playerSpeed
@@ -174,20 +169,21 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
 
     private func verifyPosition() {
         let position = player.position.x
+        print(position)
         let positionRounded = Double(position).round()
-        if(positionRounded == -85){
+        if(positionRounded > -85 && positionRounded < -44){
             if isFirstPositionUsed { return }
             isFirstPositionUsed = true
             isSecondPositionUsed = false
             isThirdPositionUsed = false
             talkInit(flow: .Woods1)
-        } else if(positionRounded == 425) {
+        } else if(positionRounded > 380 && positionRounded < 425) {
             if isSecondPositionUsed { return }
             isSecondPositionUsed = true
             isFirstPositionUsed = false
             isThirdPositionUsed = false
             talkInit(flow: .Woods2)
-        } else if(positionRounded == 680) {
+        } else if(positionRounded > 635 && positionRounded < 680) {
             if isThirdPositionUsed { return }
             isThirdPositionUsed = true
             isFirstPositionUsed = false
