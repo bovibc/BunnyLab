@@ -24,6 +24,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     let walkingPlayer = "WalkingPlayer"
     let minDistance: CGFloat = -78
     let maxDistance: CGFloat = 1904
+    let endGameDistance: CGFloat = 2350
     let textFlow: TextFlow  = TextFlow()
 
     var player: SKSpriteNode!
@@ -76,6 +77,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         updatePlayerPosition()
         updateCameraPosition()
+        verifyEndGame()
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
@@ -125,7 +127,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
 
     private func setupPlayer() {
         self.player = childNode(withName: "player") as? SKSpriteNode
-        let texture = SKTexture(imageNamed: stoppedPlayer)
         self.player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.categoryBitMask = 1
@@ -152,6 +153,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func updatePlayerPosition() {
+        print(player.position.x)
         if rightIsPressed {
             player.position.x += playerSpeed
             walk()
@@ -191,6 +193,13 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         let playerPosition = player.position.x
         if(playerPosition > minDistance && playerPosition < maxDistance) {
             camera?.position.x = playerPosition
+        }
+    }
+
+    private func verifyEndGame() {
+        let playerPosition = player.position.x
+        if (playerPosition > endGameDistance) {
+            goesToEnd()
         }
     }
 
@@ -293,7 +302,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToEnd() {
-        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
+        TrasactionsScenes.goToFinishWoods(view: self.view)
     }
 
     private func isContactWithBarrier() -> Bool {
