@@ -14,10 +14,16 @@ class FirstExperiment: SKScene {
     var containers: [SKSpriteNode] = []
     var clickedContainers: [SKSpriteNode] = []
     var correctContainers: [SKSpriteNode] = []
+
+    var info: SKSpriteNode!
+    var infoLabel: SKLabelNode!
+    var infoBlur: SKSpriteNode!
+    var infoClose: SKSpriteNode!
     
     // MARK: Inherited Methods
     override func didMove(to view: SKView) {
         self.setContainers()
+        self.setupInfo()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -29,7 +35,14 @@ class FirstExperiment: SKScene {
             containerPressed(name)
         } else if name == Assets.General.doneButton.rawValue {
             pressedDoneButton()
+        } else if(name == Assets.General.back.rawValue) {
+            self.backAction()
+        } else if(name == Assets.General.info.rawValue) {
+            self.infoAction()
+        } else if(name == Assets.General.infoClose.rawValue) {
+            self.infoCloseAction()
         }
+
     }
 
     // MARK: Private Methods
@@ -51,6 +64,13 @@ class FirstExperiment: SKScene {
         self.correctContainers = [three, four, six, eleven]
     }
 
+    private func setupInfo() {
+        info = childNode(withName: Assets.General.infoBoard.rawValue) as? SKSpriteNode
+        infoLabel = childNode(withName: Assets.General.infoLabel.rawValue) as? SKLabelNode
+        infoBlur = childNode(withName: Assets.General.infoBlur.rawValue) as? SKSpriteNode
+        infoClose = childNode(withName: Assets.General.infoClose.rawValue) as? SKSpriteNode
+    }
+
     private func containerPressed(_ name: Assets.Exp1) {
         let index = (Int(name.rawValue) ?? 1) - 1
         let container = containers[index]
@@ -65,11 +85,10 @@ class FirstExperiment: SKScene {
     }
 
     private func pressedDoneButton() {
-        print(isGameFinished())
         if isGameFinished() {
             
         } else {
-            
+            tryAgain()
         }
     }
 
@@ -81,5 +100,32 @@ class FirstExperiment: SKScene {
             }
         }
         return true
+    }
+
+    private func backAction() {
+        if let previousScene = self.parentScene {
+            self.view?.presentScene(previousScene)
+        }
+    }
+
+    private func infoAction() {
+        addChild(infoBlur)
+        addChild(info)
+        addChild(infoClose)
+        addChild(infoLabel)
+    }
+
+    private func infoCloseAction() {
+        info.removeFromParent()
+        infoLabel.removeFromParent()
+        infoClose.removeFromParent()
+        infoBlur.removeFromParent()
+    }
+
+    private func tryAgain() {
+        for i in clickedContainers {
+            i.texture = SKTexture(imageNamed: i.name ?? "")
+        }
+        clickedContainers = []
     }
 }

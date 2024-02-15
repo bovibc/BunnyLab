@@ -89,11 +89,6 @@ class SecondExperiment: SKScene {
         infoLabel = childNode(withName: Assets.General.infoLabel.rawValue) as? SKLabelNode
         infoBlur = childNode(withName: Assets.General.infoBlur.rawValue) as? SKSpriteNode
         infoClose = childNode(withName: Assets.General.infoClose.rawValue) as? SKSpriteNode
-
-        info.removeFromParent()
-        infoLabel.removeFromParent()
-        infoClose.removeFromParent()
-        infoBlur.removeFromParent()
     }
 
     private func rightButtonClicked(_ targetNode: String) {
@@ -187,6 +182,9 @@ class SecondExperiment: SKScene {
     }
 
     private func infoCloseAction() {
-        self.setupInfo()
+        info.removeFromParent()
+        infoLabel.removeFromParent()
+        infoClose.removeFromParent()
+        infoBlur.removeFromParent()
     }
 }
