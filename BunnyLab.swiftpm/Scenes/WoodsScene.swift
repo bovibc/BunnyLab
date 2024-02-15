@@ -236,7 +236,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToLab() {
-        TrasactionsScenes.goToLab(view: self.view)
+        TransactionsScene.goToLab(view: self.view)
     }
 }
 

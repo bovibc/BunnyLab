@@ -23,7 +23,7 @@ class CityScene: SKScene {
     override func didMove(to view: SKView) {
         self.setupTalk()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.talkInit()
         }
     }
@@ -102,6 +102,6 @@ class CityScene: SKScene {
     }
     
     private func goesToWoods() {
-        TrasactionsScenes.goToWoods(view: self.view)
+        TransactionsScene.goToWoods(view: self.view)
     }
 }

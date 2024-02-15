@@ -17,13 +17,35 @@ enum Experiments: String {
 }
 
 enum Scenes: String {
+    case Start = "StartScene"
     case City = "CityScene"
     case Lab = "LabScene"
     case Woods = "WoodsScene"
     case FinishWoods = "FinishWoods"
 }
 
-class TrasactionsScenes: SKScene {
+class TransactionsScene: SKScene {
+
+    static func goToCity(view: SKView?){
+        guard let view = view else { return }
+        let scene = GKScene(fileNamed: Scenes.City.rawValue)
+        let transition = SKTransition.fade(with: .black, duration: 3.0)
+        
+        if let experiment = scene?.rootNode as? SKScene {
+            view.presentScene(experiment, transition: transition)
+        }
+    }
+
+    static func goToWoods(view: SKView?){
+        guard let view = view else { return }
+        let scene = GKScene(fileNamed: Scenes.Woods.rawValue)
+        let transition = SKTransition.fade(with: .black, duration: 3.0)
+        
+        if let experiment = scene?.rootNode as? SKScene {
+            view.presentScene(experiment, transition: transition)
+        }
+    }
+
     static func goToLab(view: SKView?){
         guard let view = view else { return }
         let scene = SKScene(fileNamed: Scenes.Lab.rawValue)
@@ -34,17 +56,7 @@ class TrasactionsScenes: SKScene {
             view.presentScene(experimentScene, transition: transition)
         }
     }
-    
-    static func goToWoods(view: SKView?){
-        guard let view = view else { return }
-        let scene = GKScene(fileNamed: Scenes.Woods.rawValue)
-        let transition = SKTransition.fade(with: .black, duration: 3.0)
-        
-        if let experiment = scene?.rootNode as? SKScene {
-            view.presentScene(experiment, transition: transition)
-        }
-    }
-    
+
     static func goToFinishWoods(view: SKView?){
         guard let view = view else { return }
         let scene = GKScene(fileNamed: Scenes.FinishWoods.rawValue)
@@ -54,7 +66,7 @@ class TrasactionsScenes: SKScene {
             view.presentScene(experiment, transition: transition)
         }
     }
-    
+
     static func goToSecondExperiment(view: SKView?, _ parent: SKScene){
         guard let view = view else { return }
         let scene = GKScene(fileNamed: Experiments.Two.rawValue)
@@ -65,7 +77,7 @@ class TrasactionsScenes: SKScene {
             view.presentScene(experimentScene)
         }
     }
-    
+
     static func goToThirdExperiment(view: SKView?, _ parent: SKScene){
         guard let view = view else { return }
         let scene = GKScene(fileNamed: Experiments.Three.rawValue)
@@ -76,5 +88,4 @@ class TrasactionsScenes: SKScene {
             view.presentScene(experimentScene)
         }
     }
-
 }

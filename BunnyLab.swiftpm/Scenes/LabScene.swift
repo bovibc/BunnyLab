@@ -290,19 +290,19 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToFirstExperiment() {
-        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
+        TransactionsScene.goToThirdExperiment(view: self.view, self)
     }
 
     private func goesToSecondExperiment() {
-        TrasactionsScenes.goToSecondExperiment(view: self.view, self)
+        TransactionsScene.goToSecondExperiment(view: self.view, self)
     }
 
     private func goesToThirdExperiment() {
-        TrasactionsScenes.goToThirdExperiment(view: self.view, self)
+        TransactionsScene.goToThirdExperiment(view: self.view, self)
     }
 
     private func goesToEnd() {
-        TrasactionsScenes.goToFinishWoods(view: self.view)
+        TransactionsScene.goToFinishWoods(view: self.view)
     }
 
     private func isContactWithBarrier() -> Bool {
