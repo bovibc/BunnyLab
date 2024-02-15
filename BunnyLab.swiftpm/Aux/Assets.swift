@@ -22,19 +22,6 @@ enum Assets {
         case ten = "10"
         case eleven = "11"
         case twelve = "12"
-        
-        case oneRed = "1r"
-        case twoRed = "2r"
-        case threeRed = "3r"
-        case fourRed = "4r"
-        case fiveRed = "5r"
-        case sixRed = "6r"
-        case sevenRed = "7r"
-        case eightRed = "8r"
-        case nineRed = "9r"
-        case tenRed = "10r"
-        case elevenRed = "11r"
-        case twelveRed = "12r"
     }
 
     enum Exp2: String {
@@ -129,5 +116,18 @@ enum Assets {
         case wildHead = "SelvagemHead"
         case whiteHead = "WhiteHead"
         case mainHead = "MainHead"
+
+        case oneRed = "1r"
+        case twoRed = "2r"
+        case threeRed = "3r"
+        case fourRed = "4r"
+        case fiveRed = "5r"
+        case sixRed = "6r"
+        case sevenRed = "7r"
+        case eightRed = "8r"
+        case nineRed = "9r"
+        case tenRed = "10r"
+        case elevenRed = "11r"
+        case twelveRed = "12r"
     }
 }
