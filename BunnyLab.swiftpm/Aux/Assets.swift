@@ -93,6 +93,7 @@ enum Assets {
         case info = "info"
         case play = "playButton"
         case replayButton = "replayButton"
+        case doneButton = "doneButton"
         case infoBoard = "infoBoard"
         case infoLabel = "infoLabel"
         case infoBlur = "infoBlur"

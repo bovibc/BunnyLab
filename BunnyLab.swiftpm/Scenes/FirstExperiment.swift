@@ -13,6 +13,7 @@ class FirstExperiment: SKScene {
     var parentScene: SKScene?
     var containers: [SKSpriteNode] = []
     var clickedContainers: [SKSpriteNode] = []
+    var correctContainers: [SKSpriteNode] = []
     
     // MARK: Inherited Methods
     override func didMove(to view: SKView) {
@@ -23,10 +24,11 @@ class FirstExperiment: SKScene {
         let touch = touches.first as UITouch?
         let touchLocation = touch?.location(in: self)
         let targetNode = atPoint(touchLocation!) as! SKSpriteNode
-        if let name = Assets.Exp1(rawValue: targetNode.name ?? "") {
+        let name = targetNode.name
+        if let name = Assets.Exp1(rawValue: name ?? "") {
             containerPressed(name)
-        } else {
-            
+        } else if name == Assets.General.doneButton.rawValue {
+            pressedDoneButton()
         }
     }
 
@@ -46,6 +48,7 @@ class FirstExperiment: SKScene {
               let twelve =  childNode(withName: Assets.Exp1.twelve.rawValue) as? SKSpriteNode else { return }
        
         self.containers = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve]
+        self.correctContainers = [three, four, six, eleven]
     }
 
     private func containerPressed(_ name: Assets.Exp1) {
@@ -54,8 +57,29 @@ class FirstExperiment: SKScene {
         if clickedContainers.contains(container) {
             let deleteIndex = clickedContainers.firstIndex(of: container) ?? 0
             clickedContainers.remove(at: deleteIndex)
+            container.texture = SKTexture(imageNamed: name.rawValue)
         } else {
             clickedContainers.append(container)
+            container.texture = SKTexture(imageNamed: "\(name.rawValue)r")
         }
+    }
+
+    private func pressedDoneButton() {
+        print(isGameFinished())
+        if isGameFinished() {
+            
+        } else {
+            
+        }
+    }
+
+    private func isGameFinished() -> Bool {
+        guard clickedContainers.count == correctContainers.count else { return false }
+        for i in clickedContainers {
+            if !correctContainers.contains(i) {
+                return false
+            }
+        }
+        return true
     }
 }
