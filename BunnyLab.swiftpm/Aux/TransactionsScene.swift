@@ -11,7 +11,7 @@ import GameplayKit
 import GameController
 
 enum Experiments: String {
-    case One = "FirtExperiment"
+    case One = "FirstExperiment"
     case Two = "SecondExperiment"
     case Three = "ThirdExperiment"
 }
@@ -21,10 +21,19 @@ enum Scenes: String {
     case City = "CityScene"
     case Lab = "LabScene"
     case Woods = "WoodsScene"
-    case FinishWoods = "FinishWoods"
+    case End = "EndScene"
 }
 
 class TransactionsScene: SKScene {
+    static func goToStart(view: SKView?){
+        guard let view = view else { return }
+        let scene = GKScene(fileNamed: Scenes.Start.rawValue)
+        let transition = SKTransition.fade(with: .black, duration: 3.0)
+        
+        if let experiment = scene?.rootNode as? SKScene {
+            view.presentScene(experiment, transition: transition)
+        }
+    }
 
     static func goToCity(view: SKView?){
         guard let view = view else { return }
@@ -57,13 +66,24 @@ class TransactionsScene: SKScene {
         }
     }
 
-    static func goToFinishWoods(view: SKView?){
+    static func goToEnd(view: SKView?){
         guard let view = view else { return }
-        let scene = GKScene(fileNamed: Scenes.FinishWoods.rawValue)
+        let scene = GKScene(fileNamed: Scenes.End.rawValue)
         let transition = SKTransition.fade(with: .black, duration: 3.0)
         
         if let experiment = scene?.rootNode as? SKScene {
             view.presentScene(experiment, transition: transition)
+        }
+    }
+
+    static func goToFirstExperiment(view: SKView?, _ parent: SKScene){
+        guard let view = view else { return }
+        let scene = GKScene(fileNamed: Experiments.One.rawValue)
+        
+        if let experiment = scene?.rootNode as? SKScene {
+            let experimentScene = experiment as! FirstExperiment
+            experimentScene.parentScene = parent
+            view.presentScene(experimentScene)
         }
     }
 

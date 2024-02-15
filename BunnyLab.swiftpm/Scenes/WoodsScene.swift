@@ -41,7 +41,6 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         self.camera = sceneCamera
         physicsWorld.contactDelegate = self
-        view.showsPhysics = true
         self.addChild(sceneCamera)
         
         self.setupPlayer()

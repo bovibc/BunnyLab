@@ -56,8 +56,8 @@ class SecondExperiment: SKScene {
 
     // MARK: Private Methods
     private func setupBunny() {
-        self.bunny = childNode(withName: Assets.Exp1.bunny.rawValue) as? SKSpriteNode
-        self.bunnyName = childNode(withName: Assets.Exp1.bunnyName.rawValue) as? SKLabelNode
+        self.bunny = childNode(withName: Assets.Exp2.bunny.rawValue) as? SKSpriteNode
+        self.bunnyName = childNode(withName: Assets.Exp2.bunnyName.rawValue) as? SKLabelNode
     }
 
     private func setupButtons() {
@@ -67,19 +67,19 @@ class SecondExperiment: SKScene {
     }
 
     private func setupLeftButtons() {
-        guard let sButton = childNode(withName: Assets.Exp1.sButtonLeft.rawValue) as? SKSpriteNode,
-              let cButton = childNode(withName: Assets.Exp1.cButtonLeft.rawValue) as? SKSpriteNode,
-              let hButton =  childNode(withName: Assets.Exp1.hButtonLeft.rawValue) as? SKSpriteNode,
-              let aButton =  childNode(withName: Assets.Exp1.aButtonLeft.rawValue) as? SKSpriteNode else { return }
+        guard let sButton = childNode(withName: Assets.Exp2.sButtonLeft.rawValue) as? SKSpriteNode,
+              let cButton = childNode(withName: Assets.Exp2.cButtonLeft.rawValue) as? SKSpriteNode,
+              let hButton =  childNode(withName: Assets.Exp2.hButtonLeft.rawValue) as? SKSpriteNode,
+              let aButton =  childNode(withName: Assets.Exp2.aButtonLeft.rawValue) as? SKSpriteNode else { return }
 
         leftAlleles = [sButton, cButton, hButton, aButton]
     }
 
     private func setupRightButtons() {
-        guard let sButton = childNode(withName: Assets.Exp1.sButtonRight.rawValue) as? SKSpriteNode,
-              let cButton = childNode(withName: Assets.Exp1.cButtonRight.rawValue) as? SKSpriteNode,
-              let hButton =  childNode(withName: Assets.Exp1.hButtonRight.rawValue) as? SKSpriteNode,
-              let aButton =  childNode(withName: Assets.Exp1.aButtonRight.rawValue) as? SKSpriteNode else { return }
+        guard let sButton = childNode(withName: Assets.Exp2.sButtonRight.rawValue) as? SKSpriteNode,
+              let cButton = childNode(withName: Assets.Exp2.cButtonRight.rawValue) as? SKSpriteNode,
+              let hButton =  childNode(withName: Assets.Exp2.hButtonRight.rawValue) as? SKSpriteNode,
+              let aButton =  childNode(withName: Assets.Exp2.aButtonRight.rawValue) as? SKSpriteNode else { return }
     
         rightAlleles = [sButton, cButton, hButton, aButton]
     }

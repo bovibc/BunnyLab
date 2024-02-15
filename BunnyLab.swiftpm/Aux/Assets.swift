@@ -10,6 +10,34 @@ import Foundation
 enum Assets {
     //MARK: names of sprites
     enum Exp1: String {
+        case one = "1"
+        case two = "2"
+        case three = "3"
+        case four = "4"
+        case five = "5"
+        case six = "6"
+        case seven = "7"
+        case eight = "8"
+        case nine = "9"
+        case ten = "10"
+        case eleven = "11"
+        case twelve = "12"
+        
+        case oneRed = "1r"
+        case twoRed = "2r"
+        case threeRed = "3r"
+        case fourRed = "4r"
+        case fiveRed = "5r"
+        case sixRed = "6r"
+        case sevenRed = "7r"
+        case eightRed = "8r"
+        case nineRed = "9r"
+        case tenRed = "10r"
+        case elevenRed = "11r"
+        case twelveRed = "12r"
+    }
+
+    enum Exp2: String {
         case bunny = "bunny"
         case bunnyName = "bunnyName"
         
@@ -25,7 +53,7 @@ enum Assets {
         case aButtonRight = "aButtonRight"
     }
     
-    enum Exp2: String {
+    enum Exp3: String {
         case sButtonLeft1 = "sButtonLeft1"
         case cButtonLeft1 = "cButtonLeft1"
         case hButtonLeft1 = "hButtonLeft1"
@@ -77,6 +105,7 @@ enum Assets {
         case back = "back"
         case info = "info"
         case play = "playButton"
+        case replayButton = "replayButton"
         case infoBoard = "infoBoard"
         case infoLabel = "infoLabel"
         case infoBlur = "infoBlur"

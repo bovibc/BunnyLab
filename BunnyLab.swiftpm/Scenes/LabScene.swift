@@ -42,7 +42,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         sceneStarted = true
         self.camera = sceneCamera
         physicsWorld.contactDelegate = self
-        view.showsPhysics = true
         self.addChild(sceneCamera)
         
         self.setupPlayer()
@@ -290,7 +289,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToFirstExperiment() {
-        TransactionsScene.goToThirdExperiment(view: self.view, self)
+        TransactionsScene.goToFirstExperiment(view: self.view, self)
     }
 
     private func goesToSecondExperiment() {
@@ -302,7 +301,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func goesToEnd() {
-        TransactionsScene.goToFinishWoods(view: self.view)
+        TransactionsScene.goToEnd(view: self.view)
     }
 
     private func isContactWithBarrier() -> Bool {
