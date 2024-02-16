@@ -9,7 +9,7 @@ import Foundation
 
 
 struct Texts {
-    let cityTexts: [String] = ["aaaaaaaaaaaaaa", "bbbbbbbbbbbb", "ccccccccccccc"]
+    let cityTexts: [String] = ["aaaaaaaaaaaaaasnsjnjsnsjnjdnjsndjndjnsdjndsjndjdnjsdnjdndjndjndsjnsdjdnjdnjdsjdsndjndjndjns", "bbbbbbbbbbbb", "ccccccccccccc"]
     let woodsTexts1: [String] = ["dddddddddedmkm"]
     let woodsTexts2: [String] = ["ccccccc"]
     let woodsTexts3: [String] = ["bbbbbbb", "sdjdjsk", "dhsihdihddhihdsdih"]

@@ -168,7 +168,6 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
 
     private func verifyPosition() {
         let position = player.position.x
-        print(position)
         let positionRounded = Double(position).round()
         if(positionRounded > -85 && positionRounded < -44){
             if isFirstPositionUsed { return }

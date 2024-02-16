@@ -152,7 +152,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func updatePlayerPosition() {
-        print(player.position.x)
         if rightIsPressed {
             player.position.x += playerSpeed
             walk()

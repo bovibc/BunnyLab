@@ -15,6 +15,7 @@ class CityScene: SKScene {
     var talkLabel: SKLabelNode!
     var talkArrow: SKSpriteNode!
     var talkArrowBack: SKSpriteNode!
+    var backgroundMusic: SKAudioNode!
     
     var talkArrowBackIsRemoved = true
     let textFlow: TextFlow = TextFlow()
@@ -56,6 +57,7 @@ class CityScene: SKScene {
     }
 
     private func talkInit() {
+        talkLabel.preferredMaxLayoutWidth = 400
         talkLabel.text = textFlow.startText(flow: .City)
         self.addChild(talkBlur)
         self.addChild(talkBalloon)
