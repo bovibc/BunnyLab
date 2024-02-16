@@ -96,6 +96,7 @@ enum Assets {
         case doneButton = "doneButton"
         case infoBoard = "infoBoard"
         case infoLabel = "infoLabel"
+        case finishLabel = "finishLabel"
         case infoBlur = "infoBlur"
         case infoClose = "infoClose"
         

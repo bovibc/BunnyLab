@@ -20,10 +20,13 @@ class FirstExperiment: SKScene {
     var infoBlur: SKSpriteNode!
     var infoClose: SKSpriteNode!
     
+    var finishLabel: SKLabelNode!
+
     // MARK: Inherited Methods
     override func didMove(to view: SKView) {
         self.setContainers()
         self.setupInfo()
+        self.setupFinish()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -71,6 +74,11 @@ class FirstExperiment: SKScene {
         infoClose = childNode(withName: Assets.General.infoClose.rawValue) as? SKSpriteNode
     }
 
+    private func setupFinish() {
+        finishLabel = childNode(withName: Assets.General.finishLabel.rawValue) as? SKLabelNode
+        finishLabel.isHidden = true
+    }
+
     private func containerPressed(_ name: Assets.Exp1) {
         let index = (Int(name.rawValue) ?? 1) - 1
         let container = containers[index]
@@ -86,10 +94,9 @@ class FirstExperiment: SKScene {
 
     private func pressedDoneButton() {
         if isGameFinished() {
-            
-        } else {
-            tryAgain()
+            finishGame()
         }
+        tryAgain()
     }
 
     private func isGameFinished() -> Bool {
@@ -109,10 +116,9 @@ class FirstExperiment: SKScene {
     }
 
     private func infoAction() {
-        addChild(infoBlur)
-        addChild(info)
-        addChild(infoClose)
-        addChild(infoLabel)
+        infoLabel.isHidden = false
+        finishLabel.isHidden = true
+        addInfoOrFinish()
     }
 
     private func infoCloseAction() {
@@ -120,6 +126,7 @@ class FirstExperiment: SKScene {
         infoLabel.removeFromParent()
         infoClose.removeFromParent()
         infoBlur.removeFromParent()
+        finishLabel.removeFromParent()
     }
 
     private func tryAgain() {
@@ -127,5 +134,19 @@ class FirstExperiment: SKScene {
             i.texture = SKTexture(imageNamed: i.name ?? "")
         }
         clickedContainers = []
+    }
+
+    private func finishGame() {
+        finishLabel.isHidden = false
+        infoLabel.isHidden = true
+        addInfoOrFinish()
+    }
+
+    private func addInfoOrFinish() {
+        addChild(infoBlur)
+        addChild(info)
+        addChild(infoClose)
+        addChild(infoLabel)
+        addChild(finishLabel)
     }
 }
