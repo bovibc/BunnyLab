@@ -9,6 +9,12 @@ import Foundation
 
 enum Assets {
     //MARK: names of sprites
+
+    enum Woods: String {
+        case bunny1 = "bunny1"
+        case bunny2 = "bunny2"
+    }
+
     enum Exp1: String {
         case one = "1"
         case two = "2"

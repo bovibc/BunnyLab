@@ -188,8 +188,17 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
             isThirdPositionUsed = true
             isFirstPositionUsed = false
             isSecondPositionUsed = false
+            turnBunny()
             talkInit(flow: .Woods3)
         }
+    }
+
+    private func turnBunny() {
+        let whiteBunny = childNode(withName: Assets.Woods.bunny1.rawValue) as? SKSpriteNode
+        let wildBunny = childNode(withName: Assets.Woods.bunny2.rawValue) as? SKSpriteNode
+
+        whiteBunny?.texture = SKTexture(imageNamed: Assets.General.bunnyAlbino.rawValue)
+        wildBunny?.texture = SKTexture(imageNamed: Assets.General.bunnyWild.rawValue)
     }
 
     private func nextTalk() {

@@ -22,7 +22,7 @@ class Combinations {
 
     static func getCombinationResultName(_ firstAllele: Alleles,_ secondAllele: Alleles) -> String {
         if(firstAllele == .S || secondAllele == .S) {
-            return "Wild"
+            return "Agouti"
         } else if (firstAllele == .C || secondAllele == .C) {
             return "Chinchilla"
         } else if (firstAllele == .H || secondAllele == .H) {
