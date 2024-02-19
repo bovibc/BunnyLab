@@ -18,6 +18,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     var isSecondPositionUsed = false
     var isThirdPositionUsed = false
     var talkArrowBackIsRemoved = true
+    var isTalking = false
     
     
     var contact: SKPhysicsContact?
@@ -115,10 +116,10 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func updatePlayerPosition() {
-        if rightIsPressed {
+        if rightIsPressed && !isTalking {
             player.position.x += playerSpeed
             walk()
-        } else if leftIsPressed {
+        } else if leftIsPressed && !isTalking  {
             player.position.x -= playerSpeed
             walk()
         } else {
@@ -152,12 +153,13 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
 
     private func updateCameraPosition() {
         let playerPosition = player.position.x
-        if(playerPosition > minDistance && playerPosition < maxDistance) {
+        if(playerPosition > minDistance && playerPosition < maxDistance && !isTalking) {
             camera?.position.x = playerPosition
         }
     }
 
     private func talkInit(flow: StoryFlow) {
+        isTalking = true
         talkLabel.text = textFlow.startText(flow: flow)
         camera?.addChild(talkBlur)
         camera?.addChild(talkBalloon)
@@ -219,6 +221,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func finishText() {
+        isTalking = false
         removeTalk()
         if textFlow.flow == .Woods3 { goesToLab() }
     }

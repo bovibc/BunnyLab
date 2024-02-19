@@ -29,6 +29,7 @@ public class AudioPlayer {
         if let url = Bundle.main.url(forResource: "acousticbreeze", withExtension: "mp3") {
             musicPlayer = try? AVAudioPlayer(contentsOf: url)
             musicPlayer.numberOfLoops = -1
+            musicPlayer.volume = 0.15
             musicPlayer.prepareToPlay()
             musicPlayer.play()
         }
