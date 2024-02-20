@@ -161,6 +161,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     private func talkInit(flow: StoryFlow) {
         isTalking = true
         talkLabel.text = textFlow.startText(flow: flow)
+        //talkHead.texture = SKTexture(imageNamed: <#T##String#>)
         camera?.addChild(talkBlur)
         camera?.addChild(talkBalloon)
         camera?.addChild(talkHead)

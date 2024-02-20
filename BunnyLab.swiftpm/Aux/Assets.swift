@@ -80,6 +80,7 @@ enum Assets {
         case label3 = "label3"
         case label4 = "label4"
     }
+
     
     //MARK: images
     enum General: String {
@@ -118,12 +119,6 @@ enum Assets {
         case bunnyHimalayan = "BunnyHimalaia"
         case bunnyWild = "BunnySelvagem"
         case bunnyAlbino = "WhiteBunny"
-        
-        case chinchillaHead = "ChinchilaHead"
-        case himalayanHead = "HimalaiaHead"
-        case wildHead = "SelvagemHead"
-        case whiteHead = "WhiteHead"
-        case mainHead = "MainHead"
 
         case oneRed = "1r"
         case twoRed = "2r"
@@ -137,5 +132,13 @@ enum Assets {
         case tenRed = "10r"
         case elevenRed = "11r"
         case twelveRed = "12r"
+    }
+
+    enum TalkingHeadImages: String {
+        case chinchillaHead = "ChinchilaHead"
+        case himalayanHead = "HimalaiaHead"
+        case wildHead = "SelvagemHead"
+        case whiteHead = "WhiteHead"
+        case mainHead = "MainHead"
     }
 }

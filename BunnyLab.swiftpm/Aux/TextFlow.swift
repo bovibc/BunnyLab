@@ -12,6 +12,7 @@ enum StoryFlow {
     case Woods1
     case Woods2
     case Woods3
+    case Lab
     case FirstExperiment
     case SecondExperiment
     case ThirdExperiment
@@ -22,9 +23,11 @@ class TextFlow {
     // MARK: Variables
     var textIndex: Int = 0
     var text: [String] = []
+    var image: [String?] = []
     var flow: StoryFlow = .City
     
     let texts: Texts = Texts()
+    let images: TalkingImages = TalkingImages()
 
     // MARK: Public Methods
     func startText(flow: StoryFlow) -> String? {
@@ -46,6 +49,8 @@ class TextFlow {
             return startWoodsFlowText(flow: 2)
         case .Woods3:
             return startWoodsFlowText(flow: 3)
+        case .Lab:
+            return startLabFlowText()
         }
     }
 
@@ -72,6 +77,10 @@ class TextFlow {
     func isZeroIndex() -> Bool {
         return textIndex == 0
     }
+
+    func isExperimentFlow() -> Bool {
+        return (flow == .FirstExperiment || flow == .SecondExperiment || flow == .ThirdExperiment)
+    }
     
     func isFirstIndex() -> Bool {
         return textIndex == 1
@@ -80,6 +89,7 @@ class TextFlow {
     // MARK: Private Methods
     private func startCityFlowText() -> String {
         text = texts.cityTexts
+        image = images.cityTexts
         return text[textIndex]
     }
     
@@ -111,6 +121,11 @@ class TextFlow {
     
     private func startEndFlowText() -> String {
         text = texts.endTexts
+        return text[textIndex]
+    }
+    
+    private func startLabFlowText() -> String {
+        text = texts.labTexts
         return text[textIndex]
     }
 }

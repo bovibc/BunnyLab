@@ -16,6 +16,8 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     var isWalking = false
     var sceneStarted = false
     var talkArrowBackIsRemoved = true
+    var alreadyShow = false
+    var isTalking = false
     
     var contact: SKPhysicsContact?
 
@@ -122,6 +124,9 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         talkLabel.removeFromParent()
         talkArrow.removeFromParent()
         talkArrowBack.removeFromParent()
+        isTalking = false
+        
+        talkInit(flow: .Lab)
     }
 
     private func setupPlayer() {
@@ -152,10 +157,10 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func updatePlayerPosition() {
-        if rightIsPressed {
+        if rightIsPressed && !isTalking {
             player.position.x += playerSpeed
             walk()
-        } else if leftIsPressed {
+        } else if leftIsPressed && !isTalking {
             player.position.x -= playerSpeed
             walk()
         } else {
@@ -189,15 +194,20 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
 
     private func updateCameraPosition() {
         let playerPosition = player.position.x
-        if(playerPosition > minDistance && playerPosition < maxDistance) {
+        if(playerPosition > minDistance && playerPosition < maxDistance && !isTalking) {
             camera?.position.x = playerPosition
         }
     }
 
     private func verifyEndGame() {
         let playerPosition = player.position.x
-        if (playerPosition > endGameDistance) {
+        print(playerPosition)
+        if(playerPosition > endGameDistance) {
             goesToEnd()
+        } else if(playerPosition > 2110 && playerPosition < 2144) {
+            guard !alreadyShow && !isTalking else { return }
+            alreadyShow = true
+            talkInit(flow: .End)
         }
     }
 
@@ -225,12 +235,18 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     }
 
     private func talkInit(flow: StoryFlow) {
+        isTalking = true
         talkLabel.text = textFlow.startText(flow: flow)
         camera?.addChild(talkBlur)
         camera?.addChild(talkBalloon)
         camera?.addChild(talkHead)
         camera?.addChild(talkLabel)
         camera?.addChild(talkArrow)
+        
+        if textFlow.isExperimentFlow() {
+            talkArrowBackIsRemoved = false
+            camera?.addChild(talkArrowBack)
+        }
     }
 
     private func nextTalk() {
@@ -253,7 +269,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if textFlow.isZeroIndex() {
+        if textFlow.isZeroIndex() && !textFlow.isExperimentFlow() {
             talkArrowBackIsRemoved = true
             talkArrowBack.removeFromParent()
         }
@@ -271,13 +287,16 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         case .ThirdExperiment:
             goesToThirdExperiment()
         case .End:
-            goesToEnd()
+            removeTalk()
+        case .Lab:
+            removeTalk()
         default:
             goesToFirstExperiment()
         }
     }
     
     private func removeTalk() {
+        isTalking = false
         talkBlur.removeFromParent()
         talkBalloon.removeFromParent()
         talkHead.removeFromParent()

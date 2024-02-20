@@ -31,6 +31,12 @@ struct Texts {
         "They stare at her and suddenly everything goes dark..."
     ]
 
+    let labTexts: [String] = [
+        "Welcome to the bunny lab, human!",
+        "You have been chosen and your doubts about the colors of the rabbits will be clarified.",
+        "Explore the laboratory and perform the three experiments to understand more about genetics."
+    ]
+
     let firstExperimentTexts: [String] = [
         "Time to start the first experiment!",
         "Here you'll get some basic concepts about rabbit color genetics!"
@@ -54,16 +60,15 @@ struct Texts {
         "Now you already know some basic concepts of genetics! Move forward and head home! Have a safe journey!"
     ]
 
-    let info1 = [
+    let info1: [String?] = [
         "Click on the containers with the colors shown on the board to unlock some concepts about genetics (the order doesn't matter).\nWhen you're done selecting the colors, press the Done button.\nRemember, this is the first of three experiments!"
     ]
 
-    let info2 = [
+    let info2: [String?] = [
         "Practice the concepts of dominant and recessive genes!\nSelect the alleles and press Merge to visualize the resulting rabbit.\nRemember: A>C>H>W.\nAllele A has dominance over C, H, and W. C has dominance over H and W, and H has dominance over W.\nHeterozygosity is when we have more than one type of allele within the gene. E.g., SC.\nHomozygosity is when we have only one type of allele within the gene. E.g., SS.\nRemember, this is the second of three experiments!"
     ]
 
-    let info3 = [
+    let info3: [String?] = [
         "Exercise the concepts of genotype and phenotype!\nSelect the parents' genotype to obtain the possible genotypes (allele combinations) and phenotypes (expressed characteristic) of the offspring.\nThis is the last experiment!\nGenotype is the genetic composition of the individual, in the case of rabbit color, the genotype is the set of alleles.\nPhenotype is the expression of the genotype, meaning, which characteristic is externalized by the individual. In our case, the phenotype is the color of the rabbits."
     ]
-
 }
