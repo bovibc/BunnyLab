@@ -84,6 +84,9 @@ enum Assets {
     
     //MARK: images
     enum General: String {
+        case previousArrow = "previousArrow"
+        case nextArrow = "nextArrow"
+
         case sButtonClicked = "buttonSClicked"
         case cButtonClicked = "buttonCClicked"
         case hButtonClicked = "buttonHClicked"
@@ -104,6 +107,8 @@ enum Assets {
         case infoBoard = "infoBoard"
         case infoLabel = "infoLabel"
         case finishLabel = "finishLabel"
+        case finishLabel2 = "finishLabel2"
+        case finishLabel3 = "finishLabel3"
         case infoBlur = "infoBlur"
         case infoClose = "infoClose"
         
