@@ -17,7 +17,7 @@ class StartScene: SKScene {
     override func didMove(to view: SKView) {
         self.playButton = childNode(withName: Assets.General.play.rawValue) as? SKSpriteNode
         setFont()
-        //audio.playBackgroundMusic()
+        audio.playBackgroundMusic()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

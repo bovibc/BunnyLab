@@ -104,8 +104,8 @@ class FirstExperiment: SKScene {
     }
     
     private func containerPressed(_ name: Assets.Exp1) {
-        let index = (Int(name.rawValue) ?? 1) - 1
-        let container = containers[index]
+        let indexC = (Int(name.rawValue) ?? 1) - 1
+        let container = containers[indexC]
         if clickedContainers.contains(container) {
             let deleteIndex = clickedContainers.firstIndex(of: container) ?? 0
             clickedContainers.remove(at: deleteIndex)
@@ -200,22 +200,22 @@ class FirstExperiment: SKScene {
     }
     
     private func treatNextArrow() {
-        if index == 0 {
-            finishGame2()
+        if index == 1 {
             index+=1
-        } else if index == 1 {
             finishGame3()
+        } else if index == 0 {
             index+=1
+            finishGame2()
         }
     }
     
     private func treatPreviousArrow() {
         if index == 1 {
+            index-=1
             finishGame1()
-            index-=1
         } else if index == 2 {
-            finishGame2()
             index-=1
+            finishGame2()
         }
     }
     

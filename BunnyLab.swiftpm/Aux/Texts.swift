@@ -34,7 +34,7 @@ struct Texts {
     let labTexts: [String] = [
         "Welcome to the bunny lab, human!",
         "Your doubts about the colors of the rabbits will be clarified.",
-        "Explore the laboratory and perform the three experiments to understand more about genetics."
+        "Explore the laboratory and perform three experiments to understand more about genetics."
     ]
 
     let firstExperimentTexts: [String] = [
