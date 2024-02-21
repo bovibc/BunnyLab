@@ -9,8 +9,8 @@ import Foundation
 
 struct Texts {
     let cityTexts: [String] = [
-        "This is Janet, a girl who has just entered high school.",
-        "Today, Janet had her first class on genetics, but she didn't understand some concepts.",
+        "This is Janet!",
+        "Today, Janet had her first class about genetics, but she didn't understand some concepts.",
         "Genes? Alleles? Recessive and dominant genes?",
         "To reflect on the subject, Janet decided to walk through the woods."
     ]
@@ -39,7 +39,7 @@ struct Texts {
 
     let firstExperimentTexts: [String] = [
         "Time to start the first experiment!",
-        "Here you'll get some basic concepts about rabbit color genetics!"
+        "Here you'll get some basic concepts about bunnies' color genetics!"
     ]
 
     let secondExperimentTexts: [String] = [
@@ -51,7 +51,7 @@ struct Texts {
 
     let thirdExperimentTexts: [String] = [
         "In this experiment, we will learn about genotype and phenotype.",
-        "Genotype is the genetic composition, in the case of rabbit color, the genotype is the set of alleles.",
+        "Genotype is the genetic composition, in the case of bunnies' color, the genotype is the set of alleles.",
         "Phenotype is the expression of the genotype, meaning, which characteristic is externalized by the individual.",
         "In our case, the phenotype is the color of the rabbits."
     ]
