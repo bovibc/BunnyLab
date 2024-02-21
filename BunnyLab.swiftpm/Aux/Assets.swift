@@ -138,6 +138,11 @@ enum Assets {
         case tenRed = "10r"
         case elevenRed = "11r"
         case twelveRed = "12r"
+        
+        case bunny1 = "bunny1"
+        case bunny2 = "bunny2"
+        case bunny3 = "bunny3"
+        case bunny4 = "bunny4"
     }
 
     enum TalkingHeadImages: String {

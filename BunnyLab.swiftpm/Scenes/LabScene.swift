@@ -37,6 +37,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     var talkLabel: SKLabelNode!
     var talkArrow: SKSpriteNode!
     var talkArrowBack: SKSpriteNode!
+    var bunnies: [SKSpriteNode]!
     
     // MARK: Inherited Methods
     override func didMove(to view: SKView) {
@@ -50,6 +51,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         self.setupButtons()
         self.setupLabels(isHidden: true)
         self.setupTalk()
+        self.setupBunnies()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -78,6 +80,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         updatePlayerPosition()
         updateCameraPosition()
+        updateBunnies()
         verifyEndGame()
     }
 
@@ -156,6 +159,15 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         camera?.addChild(self.playButton)
     }
 
+    private func setupBunnies() {
+        guard let bunny1 = childNode(withName: Assets.General.bunny1.rawValue) as? SKSpriteNode,
+              let bunny2 = childNode(withName: Assets.General.bunny2.rawValue) as? SKSpriteNode,
+              let bunny3 =  childNode(withName: Assets.General.bunny3.rawValue) as? SKSpriteNode,
+              let bunny4 =  childNode(withName: Assets.General.bunny4.rawValue) as? SKSpriteNode else { return }
+
+        bunnies = [bunny1, bunny2, bunny3, bunny4]
+    }
+
     private func updatePlayerPosition() {
         if rightIsPressed && !isTalking {
             player.position.x += playerSpeed
@@ -182,7 +194,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         player.run(SKAction.repeatForever(action))
     }
 
-    func stop() {
+    private func stop() {
         let textures = [SKTexture(imageNamed: stoppedPlayer)]
         let action = SKAction.animate(with: textures,
                                       timePerFrame: 0.001,
@@ -196,6 +208,13 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         let playerPosition = player.position.x
         if(playerPosition > minDistance && playerPosition < maxDistance && !isTalking) {
             camera?.position.x = playerPosition
+        }
+    }
+
+    private func updateBunnies() {
+        let playerPosition = player.position.x
+        for i in bunnies {
+            i.xScale = (playerPosition > i.position.x) ?  -abs(i.xScale) : abs(i.xScale)
         }
     }
 
