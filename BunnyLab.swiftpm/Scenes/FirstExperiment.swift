@@ -145,6 +145,8 @@ class FirstExperiment: SKScene {
         infoIsAppearing = true
         infoLabel.isHidden = false
         finishLabel.isHidden = true
+        finishLabel2.isHidden = true
+        finishLabel3.isHidden = true
     }
     
     private func infoCloseAction() {
