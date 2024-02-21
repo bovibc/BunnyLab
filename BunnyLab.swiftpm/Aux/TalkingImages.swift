@@ -10,7 +10,7 @@ import Foundation
 class TalkingImages {
 
     let cityTalkingImages: [String?] = [
-        nil, nil, Assets.TalkingHeadImages.mainHead.rawValue, nil
+        nil, nil, nil, nil
     ]
 
     let woodsTalkingImages1: [String?] = [
@@ -40,17 +40,18 @@ class TalkingImages {
         Assets.TalkingHeadImages.wildHead.rawValue,
         Assets.TalkingHeadImages.wildHead.rawValue,
         Assets.TalkingHeadImages.wildHead.rawValue,
-        Assets.TalkingHeadImages.wildHead.rawValue,
         Assets.TalkingHeadImages.wildHead.rawValue
     ]
 
     let thirdExperimentTalkingImages: [String?] = [
         Assets.TalkingHeadImages.whiteHead.rawValue,
         Assets.TalkingHeadImages.whiteHead.rawValue,
+        Assets.TalkingHeadImages.whiteHead.rawValue,
         Assets.TalkingHeadImages.whiteHead.rawValue
     ]
 
     let endTextsTalkingImages: [String?] = [
+        Assets.TalkingHeadImages.himalayanHead.rawValue,
         Assets.TalkingHeadImages.himalayanHead.rawValue
     ]
 }

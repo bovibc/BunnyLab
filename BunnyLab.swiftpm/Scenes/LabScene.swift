@@ -201,7 +201,6 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
 
     private func verifyEndGame() {
         let playerPosition = player.position.x
-        print(playerPosition)
         if(playerPosition > endGameDistance) {
             goesToEnd()
         } else if(playerPosition > 2110 && playerPosition < 2144) {
@@ -237,6 +236,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
     private func talkInit(flow: StoryFlow) {
         isTalking = true
         talkLabel.text = textFlow.startText(flow: flow)
+        talkHead.texture = SKTexture(imageNamed: textFlow.getHeadImageName() ?? "")
         camera?.addChild(talkBlur)
         camera?.addChild(talkBalloon)
         camera?.addChild(talkHead)
@@ -261,6 +261,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         }
 
         talkLabel.text = text
+        talkHead.texture = SKTexture.init(imageNamed: textFlow.getHeadImageName() ?? "")
     }
 
     private func previousTalk() {
@@ -275,6 +276,7 @@ class LabScene: SKScene, SKPhysicsContactDelegate {
         }
 
         talkLabel.text = text
+        talkHead.texture = SKTexture.init(imageNamed: textFlow.getHeadImageName() ?? "")
     }
 
     private func finishText() {

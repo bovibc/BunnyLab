@@ -19,7 +19,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     var isThirdPositionUsed = false
     var talkArrowBackIsRemoved = true
     var isTalking = false
-    
+    var isHeadRemoved = false
     
     var contact: SKPhysicsContact?
 
@@ -34,6 +34,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
     var talkBlur: SKSpriteNode!
     var talkBalloon: SKSpriteNode!
     var talkHead: SKSpriteNode!
+    var talkHeadBunny: SKSpriteNode!
     var talkLabel: SKLabelNode!
     var talkArrow: SKSpriteNode!
     var talkArrowBack: SKSpriteNode!
@@ -82,6 +83,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         self.talkBlur = childNode(withName: Assets.General.talkBlur.rawValue) as? SKSpriteNode
         self.talkBalloon = childNode(withName: Assets.General.talkBalloon.rawValue) as? SKSpriteNode
         self.talkHead = childNode(withName: Assets.General.talkHead.rawValue) as? SKSpriteNode
+        self.talkHeadBunny = childNode(withName: Assets.General.talkHeadBunny.rawValue) as? SKSpriteNode
         self.talkLabel = childNode(withName: Assets.General.talkLabel.rawValue) as? SKLabelNode
         self.talkArrow = childNode(withName: Assets.General.talkArrow.rawValue) as? SKSpriteNode
         self.talkArrowBack = childNode(withName: Assets.General.talkArrowBack.rawValue) as? SKSpriteNode
@@ -89,6 +91,7 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         talkBlur.removeFromParent()
         talkBalloon.removeFromParent()
         talkHead.removeFromParent()
+        talkHeadBunny.removeFromParent()
         talkLabel.removeFromParent()
         talkArrow.removeFromParent()
         talkArrowBack.removeFromParent()
@@ -158,17 +161,6 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    private func talkInit(flow: StoryFlow) {
-        isTalking = true
-        talkLabel.text = textFlow.startText(flow: flow)
-        //talkHead.texture = SKTexture(imageNamed: <#T##String#>)
-        camera?.addChild(talkBlur)
-        camera?.addChild(talkBalloon)
-        camera?.addChild(talkHead)
-        camera?.addChild(talkLabel)
-        camera?.addChild(talkArrow)
-    }
-
     private func verifyPosition() {
         let position = player.position.x
         let positionRounded = Double(position).round()
@@ -207,13 +199,13 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
             finishText()
             return
         }
-
         if talkArrowBackIsRemoved && textFlow.isFirstIndex() {
             talkArrowBackIsRemoved = false
             camera?.addChild(talkArrowBack)
         }
         
         talkLabel.text = text
+        setImage()
     }
 
     private func previousTalk() {
@@ -228,6 +220,51 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         }
 
         talkLabel.text = text
+        setImage()
+    }
+
+    
+    private func talkInit(flow: StoryFlow) {
+        isTalking = true
+        talkLabel.text = textFlow.startText(flow: flow)
+        isHeadRemoved = true
+        camera?.addChild(talkBlur)
+        camera?.addChild(talkBalloon)
+        camera?.addChild(talkLabel)
+        camera?.addChild(talkArrow)
+        setImage()
+    }
+
+    private func setImage() {
+        if isHeadRemoved {
+            camera?.addChild(talkHead)
+            camera?.addChild(talkHeadBunny)
+            if camera?.contains(talkArrowBack) ?? false {
+                talkArrowBack.removeFromParent()
+                camera?.addChild(talkArrowBack)
+            }
+            isHeadRemoved = false
+        }
+
+        if let image = textFlow.getHeadImageName() {
+            validateImage(image)
+        } else {
+            isHeadRemoved = true
+            talkHead.removeFromParent()
+            talkHeadBunny.removeFromParent()
+        }
+    }
+
+    private func validateImage(_ image: String) {
+        if image != Assets.TalkingHeadImages.mainHead.rawValue {
+            talkHeadBunny.texture = SKTexture(imageNamed: image)
+            talkHeadBunny.isHidden = false
+            talkHead.isHidden = true
+        } else {
+            talkHead.texture = SKTexture(imageNamed: image)
+            talkHeadBunny.isHidden = true
+            talkHead.isHidden = false
+        }
     }
 
     private func finishText() {
@@ -240,10 +277,12 @@ class WoodsScene: SKScene, SKPhysicsContactDelegate {
         talkBlur.removeFromParent()
         talkBalloon.removeFromParent()
         talkHead.removeFromParent()
+        talkHeadBunny.removeFromParent()
         talkLabel.removeFromParent()
         talkArrow.removeFromParent()
         talkArrowBack.removeFromParent()
         talkArrowBackIsRemoved = true
+        isHeadRemoved = true
     }
 
     private func goesToLab() {
