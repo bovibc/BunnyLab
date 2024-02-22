@@ -6,21 +6,20 @@ BunnyLab is a playground that aims to help teenagers study genetics, with simple
 
 ## Compatibility
 
-- iOS 16.0+ or iPadOS 16
+- iOS 17.0+ or iPadOS 17
 - The playground is prefered to be played in "iPhone 15"
 
-##Technologies
+## Technologies
 
 - SpriteKit
 - SwiftUI
 - UIKit
 - Foundation
 - AVFoundation
-- GameplayKit
-- GameController 
+- GameplayKit 
 
 
-##Credits
+## Credits
 
 - Story
     The story is original and created by Clissia Bozzer Bovi.

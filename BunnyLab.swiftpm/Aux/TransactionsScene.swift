@@ -1,8 +1,8 @@
 //
 //  TrasactionsScenes.swift
-//  Capivarias
+//  BunnyLab
 //
-//  Created by Renan Tavares on 27/10/23.
+//  Created by Clissia Bozzer Bovi.
 //
 
 import Foundation

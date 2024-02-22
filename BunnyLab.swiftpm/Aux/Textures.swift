@@ -1,8 +1,8 @@
 //
 //  Textures.swift
-//  Capivarias
+//  BunnyLab
 //
-//  Created by Clissia Bozzer Bovi on 19/10/23.
+//  Created by Clissia Bozzer Bovi.
 //
 
 import Foundation
