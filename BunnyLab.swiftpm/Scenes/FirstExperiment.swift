@@ -41,8 +41,8 @@ class FirstExperiment: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first as UITouch?
         let touchLocation = touch?.location(in: self)
-        let targetNode = atPoint(touchLocation!) as! SKSpriteNode
-        let name = targetNode.name
+        let targetNode = atPoint(touchLocation!) as? SKSpriteNode
+        let name = targetNode?.name
         if let name = Assets.Exp1(rawValue: name ?? "") {
             containerPressed(name)
         } else if name == Assets.General.doneButton.rawValue {

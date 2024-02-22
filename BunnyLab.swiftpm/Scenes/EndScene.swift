@@ -20,9 +20,9 @@ class EndScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first as UITouch?
         let touchLocation = touch?.location(in: self)
-        let targetNode = atPoint(touchLocation!) as! SKSpriteNode
+        let targetNode = atPoint(touchLocation!) as? SKSpriteNode
         
-        if targetNode.name == Assets.General.replayButton.rawValue {
+        if targetNode?.name == Assets.General.replayButton.rawValue {
          goesToNewGame()
         }
     }

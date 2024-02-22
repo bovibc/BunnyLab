@@ -32,11 +32,11 @@ class CityScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first as UITouch?
         let touchLocation = touch?.location(in: self)
-        let targetNode = atPoint(touchLocation!) as! SKSpriteNode
+        let targetNode = atPoint(touchLocation!) as? SKSpriteNode
         
-        if targetNode.name == Assets.General.talkArrow.rawValue {
+        if targetNode?.name == Assets.General.talkArrow.rawValue {
             nextTalk()
-        } else if targetNode.name == Assets.General.talkArrowBack.rawValue {
+        } else if targetNode?.name == Assets.General.talkArrowBack.rawValue {
             previousTalk()
         }
     }

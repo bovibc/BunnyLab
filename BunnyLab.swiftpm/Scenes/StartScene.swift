@@ -23,8 +23,8 @@ class StartScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first as UITouch?
         let touchLocation = touch?.location(in: self)
-        let targetNode = atPoint(touchLocation!) as! SKSpriteNode
-        let name = targetNode.name ?? ""
+        let targetNode = atPoint(touchLocation!) as? SKSpriteNode
+        let name = targetNode?.name ?? ""
 
         if(name == Assets.General.play.rawValue) {
             self.playButtonPressed()

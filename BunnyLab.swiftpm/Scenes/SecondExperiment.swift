@@ -34,9 +34,9 @@ class SecondExperiment: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first as UITouch?
         let touchLocation = touch?.location(in: self)
-        let targetNode = atPoint(touchLocation!) as! SKSpriteNode
+        guard let targetNode = atPoint(touchLocation!) as? SKSpriteNode else { return }
         let name = targetNode.name ?? ""
-
+        
         if leftAlleles.contains(targetNode) {
             self.leftButtonClicked(name)
         } else if rightAlleles.contains(targetNode) {
