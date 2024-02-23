@@ -58,7 +58,7 @@ struct Texts {
 
     let endTexts: [String] = [
         "Now you already know some basic concepts of genetics!",
-        "Move forward and head home!"
+        "Move forward and head home or come back and perform the experiments again!"
     ]
 
 }
