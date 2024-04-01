@@ -1,5 +1,7 @@
 # BunnyLab
 
+WWDC24 Winner Project
+
 ## Description
 
 BunnyLab is a playground that aims to help teenagers study genetics, with simple theoretical explanations and small experiments that help them retain knowledge. BunnyLab has an original story and a welcoming design that turns learning into something fun, dynamic and interesting.
